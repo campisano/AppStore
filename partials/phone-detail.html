@@ -1,44 +1,43 @@
 <div>
-    <div class="phone-images"><img ng-src="{{img}}" class="phone" ng-repeat="img in phone.images"
-    ng-class="{active:mainImageUrl==img}" /></div>
+  <div class="phone-images"><img ng-src="{{img}}" class="phone" ng-repeat="img in phone.images" ng-class="{active:mainImageUrl==img}" /></div>
 
-    <h1>{{phone.name}}</h1>
+  <h1>{{phone.name}}</h1>
 
-    <p>{{phone.description}}</p>
+  <p>{{phone.description}}</p>
 
-    <ul class="phone-thumbs">
-      <li ng-repeat="img in phone.images"><img ng-src="{{img}}" ng-mouseenter="setImage(img)" /></li>
-    </ul>
+  <ul class="phone-thumbs">
+    <li ng-repeat="img in phone.images"><img ng-src="{{img}}" ng-mouseenter="setImage(img)" /></li>
+  </ul>
 
-    <ul class="specs">
-      <li>
-        <span>Availability and Networks</span>
+  <ul class="specs">
+    <li>
+      <span>Availability and Networks</span>
 
-        <dl>
-          <dt>Availability</dt>
+      <dl>
+        <dt>Availability</dt>
 
-          <dd ng-repeat="availability in phone.availability">{{availability}}</dd>
-        </dl>
-      </li>
+        <dd ng-repeat="availability in phone.availability">{{availability}}</dd>
+      </dl>
+    </li>
 
-      <li style="list-style: none">...</li>
+    <li style="list-style: none">...</li>
 
-      <li style="list-style: none">
-        <span>Additional Features</span>
+    <li style="list-style: none">
+      <span>Additional Features</span>
 
-        <dl>
-          <dd>{{phone.additionalFeatures}}</dd>
-        </dl>
+      <dl>
+        <dd>{{phone.additionalFeatures}}</dd>
+      </dl>
 
-        <dl>
-          <dt>Infrared</dt>
+      <dl>
+        <dt>Infrared</dt>
 
-          <dd>{{phone.connectivity.infrared | checkmark}}</dd>
+        <dd>{{phone.connectivity.infrared | CheckmarkFilter}}</dd>
 
-          <dt>GPS</dt>
+        <dt>GPS</dt>
 
-          <dd>{{phone.connectivity.gps | checkmark}}</dd>
-        </dl>
-      </li>
-    </ul>
+        <dd>{{phone.connectivity.gps | CheckmarkFilter}}</dd>
+      </dl>
+    </li>
+  </ul>
 </div>
