@@ -1,11 +1,11 @@
 // app module
 var phonecatApp = angular.module('phonecatApp',
-    // dependencies
-    ['ngRoute',
-     'phonecatControllers',
-     'phonecatFilters',
-     'phonecatServices',
-     'phonecatAnimations']);
+                                    // dependencies
+                                    ['ngRoute',
+                                     'phonecatControllers',
+                                     'phonecatFilters',
+                                     'phonecatServices',
+                                     'phonecatAnimations']);
 
 // app url routes to templates
 phonecatApp.config(['$routeProvider',
