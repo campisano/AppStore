@@ -4,5 +4,10 @@
 
 === Angular start points ===
 
+http://docs.angularjs.org/tutorial
 http://www.sitepoint.com/understanding-twitter-bootstrap-3/
 http://www.bootply.com/89910
+http://www.bootply.com/85737
+http://willvincent.com/blog/angularjs-and-twitter-bootstrap-playing-nicely
+
+http://pikock.github.io/bootstrap-magic/app/index.html#!/editor
