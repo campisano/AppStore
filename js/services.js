@@ -41,7 +41,7 @@ phonecatServices.factory('PhoneService', [
                                         params: { phoneId: 'phones' },
                                         cache: false,
                                         responseType: 'json',
-                                        isArray:true
+                                        isArray: true
                                     },
                                     get: {
                                         method: 'GET',
