@@ -46,39 +46,74 @@
             </div>
         </div>
     </nav>
+
+
+
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Best Vacation Rentals</h1>
+            <p>Sed placerat fringilla quam et.</p>
+            <a class="btn btn-primary btn-lg">Start Now!</a>
+        </div>
+    </div>
+
+
+
     <div class="container-fluid">
         <div class="row">
-            <div class="container-fluid">
-                <div class="row">
-                    <div ng-repeat="phone in phones | filter:query | orderBy:orderProp">
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <a href="#/phones/{{phone.id}}"><img ng-src="{{phone.imageUrl}}" class="col-md-6 img-responsive"/></a>
-                                            <p class="col-md-6">{{phone.snippet}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {{$index}} - <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
                         </div>
-                        <div ng-if="$index != 0">
-                            <div ng-if="$index % 2 == 0">
-                                <div class="clearfix visible-md visible-lg"/>
-                            </div>
-                            <div ng-show="$index % 2 != 0">
-                                <div ng-show="$index % 1 == 0">
-                                    <div class="clearfix visible-xs visible-sm"></div>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <a href="#/phones/{{phone.id}}"><img ng-src="{{phone.imageUrl}}" class="img-responsive"/></a>
+                                </div>
+                                <div class="row">
+                                    <p>{{phone.snippet}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div ng-if="$index != 0">
+                    <div ng-if="$index % 6 == 0">
+                        <div class="clearfix visible-lg"></div>
+                    </div>
+                    <div ng-if="$index % 4 == 0">
+                        <div class="clearfix visible-xs"></div>
+                    </div>
+                    <div ng-if="$index % 3 == 0">
+                        <div class="clearfix visible-xs"></div>
+                    </div>
+                    <div ng-if="$index % 2 == 0">
+                        <div class="clearfix visible-xs"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">© 2013</div>
+                    <div class="col-md-4">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#">About Us</a></li>
+                            <li><a href="#">Support 24x7</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                <div class="col-md-4">
+                    <h3 class="text-right">Vacation Rentals</h3>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
