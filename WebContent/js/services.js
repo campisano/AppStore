@@ -4,6 +4,14 @@ var phonecatServices = angular.module('phonecatServices', [
                                         'ngResource'
                                         ]);
 
+// from http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-controllers
+phonecatServices.factory('DataSharingService',
+        [
+         function()
+         {
+             return { };
+         }]);
+
 // PhoneService service
 phonecatServices.factory('PhoneService', [
                             // dependencies

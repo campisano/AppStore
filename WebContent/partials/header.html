@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+	    <div class="navbar-header">
+	        <a class="navbar-brand" href="#">Internet Business</a>
+	    </div>
+	    <div class="collapse navbar-collapse">
+		    <ul class="nav navbar-nav navbar-left">
+		        <li ng-class="{ active: isActive('#home')}"><a href="#home">Inicio</a></li>
+		        <li ng-class="{ active: isActive('#apps')}"><a href="#apps">Aplicações</a></li>
+		        <li ng-class="{ active: isActive('#games')}"><a href="#phones/:phoneId">Jogos</a></li>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		        <li>
+					<table>
+					    <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="nome, plataforma" ng-model="shared_data.query"/></td></tr>
+					    <tr><td>Ordena por:&nbsp;</td>
+					    <td>
+					        <select ng-model="shared_data.orderProp">
+					            <option value="name">Nome</option>
+					            <option value="price">Preço</option>
+					        </select>
+					    </td></tr>
+					</table>
+				</li>
+				<li>
+			        <div ng-switch="user.authenticated">
+			            <div ng-switch-when="true" class="dropdown">
+			                <div class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>{{user.login}}<b class="caret"></b></div>
+			                <ul class="dropdown-menu">
+			                    <li><a href="#account/modify">Alterar conta</a></li>
+			                    <li><a href="#account/logout">Sair</a></li>
+			                </ul>
+			            </div>
+			            <div ng-switch-default class="dropdown">
+			                <a href="#account/register">Registrar-se</a>
+			            </div>
+			        </div>
+		        </li>
+		    </ul>
+		</div>
+	</div>
+</nav>

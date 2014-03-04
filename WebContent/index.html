@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="phonecatApp" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" ng-app="phonecatApp">
     <head>
         <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AngularJS test app</title><!-- jQuery is used for JavaScript angular animations -->
 
@@ -34,6 +35,7 @@
     </head>
     <body>
         <div class="view-container">
+            <div ng-controller="HeaderController" ng-include="'partials/header.html'"></div>
             <div ng-view="" class="view-frame"></div>
         </div>
     </body>

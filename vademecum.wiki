@@ -11,3 +11,12 @@ http://www.bootply.com/85737
 http://willvincent.com/blog/angularjs-and-twitter-bootstrap-playing-nicely
 
 http://pikock.github.io/bootstrap-magic/app/index.html#!/editor
+
+
+
+=== Angular navbar bootstrap ===
+
+http://getbootstrap.com/examples/navbar-fixed-top/
+http://stackoverflow.com/questions/16325557/dynamic-links-in-twitter-bootstrap-navbar-in-angularjs
+http://stackoverflow.com/questions/16199418/how-do-i-implement-the-bootstrap-navbar-active-class-with-angular-js
+http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-controllers

@@ -1,15 +1,33 @@
 // phoneControllers module
 var phonecatControllers = angular.module('phonecatControllers', []);
 
+//HeaderController controller
+phonecatControllers.controller('HeaderController',
+        [ // dependencies
+         '$scope', // view DOM scope
+         '$location',
+         'DataSharingService',
+         function HeaderController($scope, $location, DataSharingService) 
+         { 
+        	 $scope.shared_data = DataSharingService;
+        	 
+             $scope.isActive = function (viewLocation) { 
+                 return viewLocation === $location.path();
+             };
+         }]);
+
 // PhoneListCtrl controller
 phonecatControllers.controller('PhoneListCtrl', [
                                 // dependencies
                                 '$scope', // view DOM scope
                                 'PhoneService',
-                                function ($scope, PhoneService)
+                                'DataSharingService',
+                                function ($scope, PhoneService, DataSharingService)
                                 {
-                                   $scope.phones = PhoneService.query();
-                                   $scope.orderProp = 'age';
+                                    $scope.shared_data = DataSharingService;
+                                    
+                                    $scope.shared_data.phones = PhoneService.query();
+                                    $scope.shared_data.orderProp = 'age';
                                 }]);
 
 // PhoneDetailCtrl controller
