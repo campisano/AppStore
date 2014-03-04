@@ -8,13 +8,27 @@ phonecatControllers.controller('HeaderController',
          '$location',
          'DataSharingService',
          function HeaderController($scope, $location, DataSharingService) 
-         { 
-        	 $scope.shared_data = DataSharingService;
-        	 
+         {
+             $scope.shared_data = DataSharingService;
+
              $scope.isActive = function (viewLocation) { 
                  return viewLocation === $location.path();
              };
          }]);
+
+//FooterController controller
+phonecatControllers.controller('FooterController',
+        [ // dependencies
+         '$scope', // view DOM scope
+         '$location',
+         function FooterController($scope, $location) 
+         {
+             $scope.isActive = function (viewLocation) { 
+                 return viewLocation === $location.path();
+             };
+         }]);
+
+
 
 // PhoneListCtrl controller
 phonecatControllers.controller('PhoneListCtrl', [
