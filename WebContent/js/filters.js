@@ -25,3 +25,16 @@ appStoreFilters.filter("NewlineToBrFilter",
         };
     }
 );
+
+
+
+appStoreFilters.filter("ImagePathFilter", [
+    "DataSharingService",
+    function (DataSharingService)
+    {
+        return function(product)
+        {
+            return DataSharingService.getImagePathFromProduct(product);
+        };
+    }
+]);

@@ -10,7 +10,39 @@ var appStoreServices = angular.module("AppStoreServices", [
 appStoreServices.factory("DataSharingService", [
     function()
     {
-        return {};
+        function DataSharingModel ()
+        {
+            var self = this;
+            self.windows_system = "Windows Phone";
+            self.google_system = "Android";
+            
+            self.products_image_path = "img/products/";
+            self.windows_image_path = "windows_store/";
+            self.google_image_path = "google_play/";
+            self.unknown_image_name = "unknown";
+            self.image_ext = ".png";
+            self.getImagePathFromProduct = function(product)
+            {
+                var image_dir = self.products_image_path;
+
+                if(product.system.substring(0, self.windows_system.length) == self.windows_system)
+                {
+                	image_dir += self.windows_image_path + product.id.substring(product.id.indexOf('/') + 1) + self.image_ext;
+                }
+                else if (product.system.substring(0, self.google_system.length) == self.google_system)
+                {
+                	image_dir += self.google_image_path + product.id + self.image_ext;
+                }
+                else
+                {
+                	image_dir += self.unknown_image_name + self.image_ext;
+                }
+
+                return image_dir;
+            };
+        }
+        
+        return new DataSharingModel();
     }
 ]);
 
