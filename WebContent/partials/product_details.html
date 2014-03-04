@@ -1,0 +1,32 @@
+<div>
+    <div class="phone-images">
+        <img ng-src="{{ img }}" class="product" ng-repeat="img in product.images" ng-class="{ active:main_image_url == img }" />
+    </div>
+    <h1 ng-bind-html="product.name | NewlineToBrFilter"></h1>
+    <p ng-bind-html="product.description | NewlineToBrFilter"></p>
+    <ul class="phone-thumbs">
+        <li ng-repeat="img in product.images"><img ng-src="{{ img }}" ng-mouseenter="setImage(img)"/></li>
+    </ul>
+    <ul class="specs">
+        <li>
+            <div>Availability and Networks</div>
+            <dl>
+                <dt>Availability</dt>
+                <dd ng-repeat="availability in product.availability">{{ availability }}</dd>
+            </dl>
+        </li>
+        <li style="list-style: none">...</li>
+        <li style="list-style: none">
+            <div>Additional Features</div>
+            <dl>
+                <dd>{{ product.additionalFeatures }}</dd>
+            </dl>
+            <dl>
+                <dt>Infrared</dt>
+                <dd>{{ product.connectivity.infrared | CheckmarkFilter }}</dd>
+                <dt>GPS</dt>
+                <dd>{{ product.connectivity.gps | CheckmarkFilter }}</dd>
+            </dl>
+        </li>
+    </ul>
+</div>

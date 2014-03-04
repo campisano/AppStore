@@ -1,20 +1,21 @@
 <div class="container-fluid">
     <div class="row">
-        <div ng-repeat="phone in shared_data.phones | filter:shared_data.query | orderBy:shared_data.orderProp">
+        <div ng-repeat="product in shared_data.products | filter:shared_data.query | orderBy:shared_data.order_prop">
             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{$index}} - <a href="#/phones/{{phone.id}}">{{phone.name}}</a>
+                        {{ $index }} - <a href="#/products/{{ product.id }}">{{ product.name }}</a>
                     </div>
                     <div class="panel-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <a href="#/phones/{{phone.id}}">
-                                    <img ng-src="{{phone.imageUrl}}" class="img-responsive"/>
+                                <a href="#/products/{{ product.id }}">
+                                    <img ng-src="{{ product.imageUrl }}" class="img-responsive"/>
+                                    TODO edit imageUrl
                                 </a>
                             </div>
                             <div class="row">
-                                <p>{{phone.snippet}}</p>
+                                <p>{{product.snippet}}</p>
                             </div>
                         </div>
                     </div>

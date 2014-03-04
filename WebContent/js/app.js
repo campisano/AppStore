@@ -1,29 +1,32 @@
-// app module
-var phonecatApp = angular.module('phonecatApp',
-                                    // dependencies
-                                    ['ngRoute',
-                                     'phonecatControllers',
-                                     'phonecatFilters',
-                                     'phonecatServices',
-                                     'phonecatAnimations']);
+// AppStore application main module
+var appStoreApplication = angular.module("AppStoreApplication", [
+    "ngRoute",
+    "ngSanitize",
+    "AppStoreControllers",
+    "AppStoreFilters",
+    "AppStoreServices",
+    "AppStoreAnimations"
+]);
 
 // app url routes to templates
-phonecatApp.config(['$routeProvider',
-                    function($routeProvider)
-                    {
-                        $routeProvider.
-                            when('/phones',
-                            {
-                                templateUrl: 'partials/phone-list.html',
-                                controller: 'PhoneListCtrl'
-                            }).
-                            when('/phones/:phoneId',
-                            {
-                                templateUrl: 'partials/phone-detail.html',
-                                controller: 'PhoneDetailCtrl'
-                            }).
-                            otherwise(
-                            {
-                                redirectTo: '/phones'
-                            });
-                    }]);
+appStoreApplication.config( [
+    "$routeProvider",
+    function($routeProvider)
+    {
+        $routeProvider.
+        when("/products",
+        {
+            templateUrl: "partials/product_list.html",
+            controller: "ProductListController"
+        }).
+        when("/products/:product_id",
+        {
+            templateUrl: "partials/product_details.html",
+            controller: "ProductDetailController"
+        }).
+        otherwise(
+        {
+            redirectTo: "/products"
+        });
+    }
+]);

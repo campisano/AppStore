@@ -24,3 +24,11 @@ http://getbootstrap.com/examples/navbar-fixed-top/
 http://stackoverflow.com/questions/16325557/dynamic-links-in-twitter-bootstrap-navbar-in-angularjs
 http://stackoverflow.com/questions/16199418/how-do-i-implement-the-bootstrap-navbar-active-class-with-angular-js
 http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-controllers
+
+
+
+== Json data ===
+
+http://shancarter.github.io/mr-data-converter/ from excel tabular data to json properties
+http://jsonformatter.curiousconcept.com/ formatting and validating
+ 
