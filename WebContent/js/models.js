@@ -38,21 +38,21 @@ function StoreModel()
     {
         if(! product instanceof ProductModel)
         {
-            throw "StoreModel.addProduct() parameter must be a ProductModel";
+            throw "StoreModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product) + ".";
         }
-        
+
         if(self.products.filter(function (item) { return item.id === product.id; }))
         {
-            throw "StoreModel.addProduct() alredy exist a product with same id";
+            throw "StoreModel.addProduct() alredy exist a product with same id: " + product.id + ".";
         }
-        
+
         self.products.push(product);
     };
 }
 
 
 
-// cart model
+// shopping cart model
 function CartModel()
 {
     var self = this;
@@ -62,30 +62,30 @@ function CartModel()
     {
         if(! product instanceof ProductModel)
         {
-            throw "CartModel.addProduct() parameter must be a ProductModel";
+            throw "CartModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product) + ".";
         }
-        
-        if(self.products.filter(function (item) { return item.id === product.id; }))
+
+        if(self.contains(product.id))
         {
-            throw "CartModel.addProduct() alredy exist a product with same id";
+            throw "CartModel.addProduct() alredy exist a product with same id: " + product.id + ".";
         }
-        
+
         self.products.push(product);
     };
 
-    self.removeProduct = function(id)
+    self.removeProduct = function(product_id)
     {
         for (var i = self.products.length - 1; i >= 0; --i)
         {
-            if (self.products[i].id === id)
+            if (self.products[i].id === product_id)
             {
-                self.products.splice(i, 1);
+            	self.products.splice(i, 1);
 
                 return;
             }
         }
         
-        throw "CartModel.removeProduct() can't find a product with this id";
+        throw "CartModel.removeProduct() can't find a product with this id: " + product_id + ".";
     };
 
     self.getTotalPrice = function()
@@ -98,5 +98,23 @@ function CartModel()
         }
 
         return total;
+    };
+
+    self.getNumOfProducts = function()
+    {
+        return self.products.length;
+    };
+
+    self.contains = function(product_id)
+    {
+        for(var i = 0; i < self.products.length; ++i)
+        {
+            if (self.products[i].id === product_id)
+            {
+                return true;
+            }
+        }
+
+        return false;
     };
 }
