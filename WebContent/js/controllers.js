@@ -23,6 +23,9 @@ appStoreControllers.controller("HeaderController", [
 
             // TODO remove dummy customer
             $scope.shared_data.customer = new CustomerModel("id", "email", "username", "password");
+
+            // TODO remove dummy cart
+            $scope.shared_data.cart = new CartModel();
         }
     }
 ]);
@@ -124,11 +127,8 @@ appStoreControllers.controller("CartController", [
             {
                 CartRepositoryService.get($scope.shared_data.customer.id, function(cart)
                 {
+                    // TODO enable overwrite
                     //$scope.shared_data.cart = cart;
-                    // TODO remove dummy cart
-                    $scope.shared_data.cart = new CartModel();
-                    $scope.shared_data.cart.addProduct(new ProductModel(1, "1"));
-                    $scope.shared_data.cart.addProduct(new ProductModel(2, "2"));
                 });
             }
         };

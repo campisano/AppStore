@@ -1,5 +1,18 @@
 <div class="container-fluid">
-    <h3>Detalhes do aplicativo: <a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
+    <div class="row-fluid">
+        <div class="pull-left">
+            <h3>Detalhes do aplicativo:</h3>
+            <h3><a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
+        </div>
+        <a href="{{ product | ReferenceURLFilter }}">
+            <img height="125px" ng-src="{{ product | ImagePathFilter }}" />
+        </a>
+        <div class="row-fluid">
+            <button class="btn btn-success" ng-click="shared_data.cart.addProduct(product)">
+                <div class="glyphicon glyphicon-ok"></div> Adiciona ao carrinho
+            </button>
+        </div>
+    </div>
     <hr/>
     <div>
         <img ng-src="{{ img }}" ng-repeat="img in product.images" ng-class="{ active: main_image_url == img }" />
