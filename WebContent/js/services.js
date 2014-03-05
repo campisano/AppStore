@@ -15,33 +15,53 @@ appStoreServices.factory("DataSharingService", [
             var self = this;
             self.windows_system = "Windows Phone";
             self.google_system = "Android";
-            
+
+            self.windows_ref_url = "http://www.windowsphone.com/en-us/store/app/";
+            self.google_ref_url = "https://play.google.com/store/apps/details?id=";
+
             self.products_image_path = "img/products/";
             self.windows_image_path = "windows_store/";
             self.google_image_path = "google_play/";
             self.unknown_image_name = "unknown";
             self.image_ext = ".png";
+
             self.getImagePathFromProduct = function(product)
             {
                 var image_dir = self.products_image_path;
 
                 if(product.system.substring(0, self.windows_system.length) == self.windows_system)
                 {
-                	image_dir += self.windows_image_path + product.id.substring(product.id.indexOf('/') + 1) + self.image_ext;
+                    image_dir += self.windows_image_path + product.id.substring(product.id.indexOf('/') + 1) + self.image_ext;
                 }
                 else if (product.system.substring(0, self.google_system.length) == self.google_system)
                 {
-                	image_dir += self.google_image_path + product.id + self.image_ext;
+                    image_dir += self.google_image_path + product.id + self.image_ext;
                 }
                 else
                 {
-                	image_dir += self.unknown_image_name + self.image_ext;
+                    image_dir += self.unknown_image_name + self.image_ext;
                 }
 
                 return image_dir;
             };
+
+            self.getReferenceURLFromProduct = function(product)
+            {
+                var url = "#";
+
+                if(product.system.substring(0, self.windows_system.length) == self.windows_system)
+                {
+                    url = self.windows_ref_url + product.id;
+                }
+                else if (product.system.substring(0, self.google_system.length) == self.google_system)
+                {
+                    url = self.google_ref_url + product.id;
+                }
+
+                return url;
+            };
         }
-        
+
         return new DataSharingModel();
     }
 ]);

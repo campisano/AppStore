@@ -38,3 +38,16 @@ appStoreFilters.filter("ImagePathFilter", [
         };
     }
 ]);
+
+
+
+appStoreFilters.filter("ReferenceURLFilter", [
+    "DataSharingService",
+    function (DataSharingService)
+    {
+        return function(product)
+        {
+            return DataSharingService.getReferenceURLFromProduct(product);
+        };
+    }
+]);

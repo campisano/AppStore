@@ -1,4 +1,6 @@
 <div class="container-fluid">
+    <h3>Detalhes do aplicativo: <a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
+    <hr/>
     <div>
         <img ng-src="{{ img }}" ng-repeat="img in product.images" ng-class="{ active: main_image_url == img }" />
     </div>
