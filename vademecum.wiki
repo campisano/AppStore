@@ -30,6 +30,12 @@ http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-cont
 
 
 
+=== Angular and Shopping Cart ===
+
+http://www.codeproject.com/Articles/576246/A-Shopping-Cart-Application-Built-with-AngularJS
+
+
+
 == Bootstrap ==
 
 
