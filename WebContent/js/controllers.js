@@ -60,12 +60,12 @@ appStoreControllers.controller("ProductDetailController", [
     function($scope, $routeParams, $http, ProductRepositoryService, DataSharingService)
     {
         var self = this;
-
+        
         self.getProductDetail = function(product_id)
         {
             for (var i = 0; i < $scope.shared_data.products.length; ++i)
             {
-                if ($scope.shared_data.products[i].id === $routeParams.product_id)
+                if ($scope.shared_data.products[i].id === product_id)
                 {
                     return $scope.shared_data.products[i];
                 }
