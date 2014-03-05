@@ -59,30 +59,34 @@ appStoreControllers.controller("ProductDetailController", [
     "DataSharingService",
     function($scope, $routeParams, $http, ProductRepositoryService, DataSharingService)
     {
-        $scope.shared_data = DataSharingService;
-        //$scope.product = ProductRepositoryService.get( { product_id: $routeParams.product_id}, function(product)
-        //{
-        //    $scope.main_image_url = product.images[0];
-        //});
+        var self = this;
 
-        if (typeof $scope.shared_data.products === "undefined")
+        self.getProductDetail = function(product_id)
         {
-            $scope.shared_data.products = ProductRepositoryService.query();
-            alert("products empty: the service is async :(\nproducts: '" + $scope.shared_data.products + "'");
-        }
-
-        for (var i = $scope.shared_data.products.length - 1; i >= 0; --i)
-        {
-            if ($scope.shared_data.products[i].id === $routeParams.product_id)
+            for (var i = 0; i < $scope.shared_data.products.length; ++i)
             {
-                $scope.product = $scope.shared_data.products[i];
-
-                break;
+                if ($scope.shared_data.products[i].id === $routeParams.product_id)
+                {
+                    return $scope.shared_data.products[i];
+                }
             }
-        }
 
-        //$scope.product = PhoneService.getPhoneDetail($routeParams.phoneId);
-        //$scope.main_image_url = product.images[0];
+            throw "ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id;
+        };
+        
+        $scope.shared_data = DataSharingService;
+
+        if (typeof($scope.shared_data.products) === "undefined")
+        {
+            $scope.shared_data.products = ProductRepositoryService.query(null, function()
+            {
+                $scope.product = self.getProductDetail($routeParams.product_id);
+            });
+        }
+        else
+        {
+            $scope.product = self.getProductDetail($routeParams.product_id);
+        }
 
         $scope.setImage = function(image_url)
         {

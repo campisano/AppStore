@@ -10,7 +10,7 @@ var appStoreServices = angular.module("AppStoreServices", [
 appStoreServices.factory("DataSharingService", [
     function()
     {
-        function DataSharingModel ()
+        function DataSharingObject ()
         {
             var self = this;
             self.windows_system = "Windows Phone";
@@ -27,6 +27,13 @@ appStoreServices.factory("DataSharingService", [
 
             self.getImagePathFromProduct = function(product)
             {
+                //TODO
+                /*
+                if(! product instanceof ProductModel)
+                {
+                    throw "DataSharingObject.getImagePathFromProduct() parameter must be a ProductModel";
+                }
+                */
                 var image_dir = self.products_image_path;
 
                 if(product.system.substring(0, self.windows_system.length) == self.windows_system)
@@ -47,7 +54,14 @@ appStoreServices.factory("DataSharingService", [
 
             self.getReferenceURLFromProduct = function(product)
             {
-                var url = "#";
+                //TODO
+                /*
+                if(! product instanceof ProductModel)
+                {
+                    throw "DataSharingObject.getReferenceURLFromProduct() parameter must be a ProductModel";
+                }
+                */
+                var url = "";
 
                 if(product.system.substring(0, self.windows_system.length) == self.windows_system)
                 {
@@ -62,7 +76,7 @@ appStoreServices.factory("DataSharingService", [
             };
         }
 
-        return new DataSharingModel();
+        return new DataSharingObject();
     }
 ]);
 

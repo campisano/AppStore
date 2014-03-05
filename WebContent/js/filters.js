@@ -7,9 +7,9 @@ var appStoreFilters = angular.module("AppStoreFilters", []);
 appStoreFilters.filter("CheckmarkFilter",
     function()
     {
-        return function(input)
+        return function(bool_text)
         {
-            return input ? "\u2713" : "\u2718";
+            return bool_text ? "\u2713" : "\u2718";
         };
     }
 );
@@ -19,9 +19,14 @@ appStoreFilters.filter("CheckmarkFilter",
 appStoreFilters.filter("NewlineToBrFilter",
     function()
     {
-        return function(input)
+        return function(text)
         {
-            return input.replace(/\n/g, "<br/>");
+            if(typeof(text) === "undefined")
+            {
+                return "";
+            }
+
+            return text.replace(/\n/g, "<br/>");
         };
     }
 );
@@ -34,6 +39,11 @@ appStoreFilters.filter("ImagePathFilter", [
     {
         return function(product)
         {
+            if(typeof(product) === "undefined")
+            {
+                return "";
+            }
+
             return DataSharingService.getImagePathFromProduct(product);
         };
     }
@@ -47,6 +57,11 @@ appStoreFilters.filter("ReferenceURLFilter", [
     {
         return function(product)
         {
+            if(typeof(product) === "undefined")
+            {
+                return "";
+            }
+
             return DataSharingService.getReferenceURLFromProduct(product);
         };
     }
