@@ -24,6 +24,11 @@ appStoreApplication.config( [
             templateUrl: "partials/product_details.html",
             controller: "ProductDetailController"
         }).
+        when("/cart",
+        {
+            templateUrl: "partials/cart.html",
+            controller: "CartController"
+        }).
         otherwise(
         {
             redirectTo: "/products"

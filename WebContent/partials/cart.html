@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <h3>Carrinho de compras:</h3>
+    <hr/>
+
+    <div class="row-fluid">
+        <div class="col-xs-6 col-sm-8 col-md-10 col-lg-10">
+
+            <!-- items -->
+            <table class="table table-bordered">
+
+                <!-- header -->
+                <tr class="well">
+                    <td><b>Produto</b></td>
+                    <td class="tdCenter"><b>Sistema</b></td>
+                    <td class="tdRight"><b>Preço</b></td>
+                    <td/>
+                </tr>
+
+                <!-- empty cart message -->
+                <tr ng-hide="shared_data.cart.getNumOfProducts() > 0">
+                    <td class="tdCenter" colspan="4">O carrinho é vazío.</td>
+                </tr>
+
+                <!-- cart items -->
+                <tr ng-repeat="product in shared_data.cart.products | orderBy:shared_data.order_prop">
+                    <td>{{ product.name }}</td>
+                    <td class="tdCenter">{{ product.system }}</td>
+                    <td class="tdRight">{{ product.price | currency }}</td>
+                    <td class="tdCenter" title="Remover do carrinho">
+                        <a href="" ng-click="shared_data.cart.removeProduct(product.id)" class="glyphicon glyphicon-remove"></a>
+                    </td>
+                </tr>
+
+                <!-- footer -->
+                <tr class="well">
+                    <td><b>Total</b></td>
+                    <td class="tdCenter"><b>{{ shared_data.cart.getNumOfProducts() }}</b></td>
+                    <td class="tdRight"><b>{{shared_data.cart.getTotalPrice() | currency}}</b></td>
+                    <td/>
+                </tr>
+            </table>
+        </div>
+
+        <!-- buttons -->
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2s">
+            <p class="text-info">
+                <button class="btn btn-block" onclick="window.location.href='#home'">
+                    <i class="icon-chevron-left"></i>Continua
+                </button>
+                <button class="btn btn-block btn-danger" ng-click="shared_data.cart.clearItems()" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                    <i class="icon-trash icon-white"></i>Limpa o carrinho
+                </button>
+            </p>
+
+            <br/>
+            <br/>
+
+            <p class="text-info">
+                <button class="btn btn-block btn-primary" ng-click="shared_data.cart.checkout('PayPal')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                    <i class="icon-ok icon-white"/>Paga com PayPal
+                </button>
+                <button class="btn btn-block btn-primary" ng-click="shared_data.cart.checkout('Google')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                    <i class="icon-ok icon-white"/>Paga com Google
+                </button>
+            </p>
+        </div>
+    </div>
+</div>

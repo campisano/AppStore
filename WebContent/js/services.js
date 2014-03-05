@@ -82,7 +82,7 @@ appStoreServices.factory("DataSharingService", [
 
 
 
-// ProductRepositoryService service
+// ProductRepositoryService
 appStoreServices.factory("ProductRepositoryService", [
     "$resource",
     "$http",
@@ -126,5 +126,26 @@ appStoreServices.factory("ProductRepositoryService", [
                 responseType: "json"
             }
         });
+    }
+]);
+
+
+
+// CartRepositoryService
+appStoreServices.factory("CartRepositoryService", [
+     "$resource",
+     "$http",
+     function($resource, $http)
+     {
+         return $resource("data/:customer_id.json", {},
+         {
+             get: {
+                 method: "GET",
+                 params: { customer_id: "products" }, // TODO remove
+                 cache: false,
+                 responseType: "json",
+                 isArray: true //TODO rempove
+             }
+         });
     }
 ]);

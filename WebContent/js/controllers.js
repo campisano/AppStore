@@ -1,7 +1,9 @@
 // AppStoreControllers module
 var appStoreControllers = angular.module("AppStoreControllers", []);
 
-// HeaderController controller
+
+
+// HeaderController
 appStoreControllers.controller("HeaderController", [
     "$scope",
     "$location",
@@ -9,16 +11,25 @@ appStoreControllers.controller("HeaderController", [
     function HeaderController($scope, $location, DataSharingService) 
     {
         $scope.shared_data = DataSharingService;
+
         $scope.isActive = function (view_location)
-        { 
+        {
             return view_location === $location.path();
         };
+
+        // constructor
+        {
+            $scope.shared_data.order_prop = "name";
+
+            // TODO remove dummy customer
+            $scope.shared_data.customer = new CustomerModel("id", "email", "username", "password");
+        }
     }
 ]);
 
 
 
-// FooterController controller
+// FooterController
 appStoreControllers.controller("FooterController", [
     "$scope",
     "$location",
@@ -26,16 +37,12 @@ appStoreControllers.controller("FooterController", [
     function FooterController($scope, $location, DataSharingService) 
     {
         $scope.shared_data = DataSharingService;
-        $scope.isActive = function (view_location)
-        { 
-            return view_location === $location.path();
-        };
     }
 ]);
 
 
 
-// ProductListController controller
+// ProductListController
 appStoreControllers.controller("ProductListController", [
     "$scope",
     "ProductRepositoryService",
@@ -43,25 +50,27 @@ appStoreControllers.controller("ProductListController", [
     function ($scope, ProductRepositoryService, DataSharingService)
     {
         $scope.shared_data = DataSharingService;
-        $scope.shared_data.products = ProductRepositoryService.query();
-        $scope.shared_data.order_prop = "name";
+        
+        // constructor
+        {
+            $scope.shared_data.products = ProductRepositoryService.query();
+        };
     }
 ]);
 
 
 
-// ProductDetailController controller
+// ProductDetailController
 appStoreControllers.controller("ProductDetailController", [
     "$scope",
     "$routeParams",
-    "$http",
     "ProductRepositoryService",
     "DataSharingService",
-    function($scope, $routeParams, $http, ProductRepositoryService, DataSharingService)
+    function($scope, $routeParams, ProductRepositoryService, DataSharingService)
     {
-        var self = this;
+        $scope.shared_data = DataSharingService;
 
-        self.getProductDetail = function(product_id)
+        $scope.getProductDetail = function(product_id)
         {
             for (var i = 0; i < $scope.shared_data.products.length; ++i)
             {
@@ -74,23 +83,54 @@ appStoreControllers.controller("ProductDetailController", [
             throw "ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id;
         };
 
-        $scope.shared_data = DataSharingService;
-
-        if (typeof($scope.shared_data.products) === "undefined")
-        {
-            $scope.shared_data.products = ProductRepositoryService.query(null, function()
-            {
-                $scope.product = self.getProductDetail($routeParams.product_id);
-            });
-        }
-        else
-        {
-            $scope.product = self.getProductDetail($routeParams.product_id);
-        }
-
         $scope.setImage = function(image_url)
         {
             $scope.main_image_url = image_url;
+        };
+
+        // constructor
+        {
+            if (typeof($scope.shared_data.products) === "undefined")
+            {
+                $scope.shared_data.products = ProductRepositoryService.query(null, function()
+                {
+                    $scope.product = $scope.getProductDetail($routeParams.product_id);
+                });
+            }
+            else
+            {
+                $scope.product = $scope.getProductDetail($routeParams.product_id);
+            }
+        };
+    }
+]);
+
+
+
+// CartController
+appStoreControllers.controller("CartController", [
+    "$scope",
+    "CartRepositoryService",
+    "DataSharingService",
+    function($scope, CartRepositoryService, DataSharingService)
+    {
+        $scope.shared_data = DataSharingService;
+
+        // constructor
+        {
+            $scope.shared_data = DataSharingService;
+
+            if (typeof($scope.shared_data.customer) !== "undefined")
+            {
+                CartRepositoryService.get($scope.shared_data.customer.id, function(cart)
+                {
+                    //$scope.shared_data.cart = cart;
+                    // TODO remove dummy cart
+                    $scope.shared_data.cart = new CartModel();
+                    $scope.shared_data.cart.addProduct(new ProductModel(1, "1"));
+                    $scope.shared_data.cart.addProduct(new ProductModel(2, "2"));
+                });
+            }
         };
     }
 ]);
