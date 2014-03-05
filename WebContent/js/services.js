@@ -7,10 +7,10 @@ var appStoreServices = angular.module("AppStoreServices", [
 
 // from http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-controllers'
 // AppStore application context
-appStoreServices.factory("DataSharingService", [
+appStoreServices.factory("SessionService", [
     function()
     {
-        function DataSharingObject ()
+        function SessionObject ()
         {
             var self = this;
             self.windows_system = "Windows Phone";
@@ -31,7 +31,7 @@ appStoreServices.factory("DataSharingService", [
                 /*
                 if(! product instanceof ProductModel)
                 {
-                    throw "DataSharingObject.getImagePathFromProduct() parameter must be a ProductModel";
+                    throw "SessionObject.getImagePathFromProduct() parameter must be a ProductModel";
                 }
                 */
                 var image_dir = self.products_image_path;
@@ -58,7 +58,7 @@ appStoreServices.factory("DataSharingService", [
                 /*
                 if(! product instanceof ProductModel)
                 {
-                    throw "DataSharingObject.getReferenceURLFromProduct() parameter must be a ProductModel";
+                    throw "SessionObject.getReferenceURLFromProduct() parameter must be a ProductModel";
                 }
                 */
                 var url = "";
@@ -76,7 +76,7 @@ appStoreServices.factory("DataSharingService", [
             };
         }
 
-        return new DataSharingObject();
+        return new SessionObject();
     }
 ]);
 

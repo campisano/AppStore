@@ -16,23 +16,23 @@
                 </tr>
 
                 <!-- empty cart message -->
-                <tr ng-hide="shared_data.cart.getNumOfProducts() > 0">
+                <tr ng-hide="session.cart.getNumOfProducts() > 0">
                     <td colspan="4">O carrinho é vazío.</td>
                 </tr>
 
                 <!-- cart items -->
-                <tr ng-repeat="product in shared_data.cart.products | orderBy:shared_data.order_prop">
+                <tr ng-repeat="product in session.cart.products | orderBy:session.order_prop">
                     <td>{{ product.name }}</td>
                     <td>{{ product.system }}</td>
                     <td>{{ product.price | currency }}</td>
-                    <td><a href="" ng-click="shared_data.cart.removeProduct(product.id)" class="glyphicon glyphicon-remove"></a></td>
+                    <td><a href="" ng-click="session.cart.removeProduct(product.id)" class="glyphicon glyphicon-remove"></a></td>
                 </tr>
 
                 <!-- footer -->
                 <tr class="well">
                     <td><b>Total</b></td>
-                    <td><b>{{ shared_data.cart.getNumOfProducts() }}</b></td>
-                    <td><b>{{shared_data.cart.getTotalPrice() | currency}}</b></td>
+                    <td><b>{{ session.cart.getNumOfProducts() }}</b></td>
+                    <td><b>{{ session.cart.getTotalPrice() | currency }}</b></td>
                     <td/>
                 </tr>
             </table>
@@ -45,15 +45,15 @@
                     <div class="glyphicon glyphicon-chevron-left"></div> Adiciona mais
                 </button>
                 //TODO clearitems
-                <button class="btn btn-block btn-danger" ng-click="shared_data.cart.clearItems()" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                <button class="btn btn-block btn-danger" ng-click="session.cart.clearItems()" ng-disabled="session.cart.getNumOfProducts() < 1">
                     <div class="glyphicon glyphicon-trash"></div> Limpa o carrinho
                 </button>
             </div>
             <div class="col-xs-6 push-right">
-                <button class="btn btn-block btn-success" ng-click="shared_data.cart.checkout('PayPal')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('PayPal')" ng-disabled="session.cart.getNumOfProducts() < 1">
                     <div class="glyphicon glyphicon-ok"></div> Paga com PayPal
                 </button>
-                <button class="btn btn-block btn-success" ng-click="shared_data.cart.checkout('Google')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('Google')" ng-disabled="session.cart.getNumOfProducts() < 1">
                     <div class="glyphicon glyphicon-ok"></div> Paga com Google
                 </button>
             </div>

@@ -7,10 +7,10 @@ var appStoreControllers = angular.module("AppStoreControllers", []);
 appStoreControllers.controller("HeaderController", [
     "$scope",
     "$location",
-    "DataSharingService",
-    function HeaderController($scope, $location, DataSharingService) 
+    "SessionService",
+    function HeaderController($scope, $location, SessionService) 
     {
-        $scope.shared_data = DataSharingService;
+        $scope.session = SessionService;
 
         $scope.isActive = function (view_location)
         {
@@ -19,13 +19,13 @@ appStoreControllers.controller("HeaderController", [
 
         // constructor
         {
-            $scope.shared_data.order_prop = "name";
+            SessionService.order_prop = "name";
 
             // TODO remove dummy customer
-            $scope.shared_data.customer = new CustomerModel("id", "email", "username", "password");
+            SessionService.customer = new CustomerModel("id", "email", "username", "password");
 
             // TODO remove dummy cart
-            $scope.shared_data.cart = new CartModel();
+            SessionService.cart = new CartModel();
         }
     }
 ]);
@@ -36,10 +36,10 @@ appStoreControllers.controller("HeaderController", [
 appStoreControllers.controller("FooterController", [
     "$scope",
     "$location",
-    "DataSharingService",
-    function FooterController($scope, $location, DataSharingService) 
+    "SessionService",
+    function FooterController($scope, $location, SessionService) 
     {
-        $scope.shared_data = DataSharingService;
+        $scope.session = SessionService;
     }
 ]);
 
@@ -49,14 +49,14 @@ appStoreControllers.controller("FooterController", [
 appStoreControllers.controller("ProductListController", [
     "$scope",
     "ProductRepositoryService",
-    "DataSharingService",
-    function ($scope, ProductRepositoryService, DataSharingService)
+    "SessionService",
+    function ($scope, ProductRepositoryService, SessionService)
     {
-        $scope.shared_data = DataSharingService;
-        
+        $scope.session = SessionService;
+
         // constructor
         {
-            $scope.shared_data.products = ProductRepositoryService.query();
+            SessionService.products = ProductRepositoryService.query();
         };
     }
 ]);
@@ -68,18 +68,18 @@ appStoreControllers.controller("ProductDetailController", [
     "$scope",
     "$routeParams",
     "ProductRepositoryService",
-    "DataSharingService",
-    function($scope, $routeParams, ProductRepositoryService, DataSharingService)
+    "SessionService",
+    function($scope, $routeParams, ProductRepositoryService, SessionService)
     {
-        $scope.shared_data = DataSharingService;
+        $scope.session = SessionService;
 
         $scope.getProductDetail = function(product_id)
         {
-            for (var i = 0; i < $scope.shared_data.products.length; ++i)
+            for (var i = 0; i < SessionService.products.length; ++i)
             {
-                if ($scope.shared_data.products[i].id === product_id)
+                if (SessionService.products[i].id === product_id)
                 {
-                    return $scope.shared_data.products[i];
+                    return SessionService.products[i];
                 }
             }
 
@@ -93,9 +93,9 @@ appStoreControllers.controller("ProductDetailController", [
 
         // constructor
         {
-            if (typeof($scope.shared_data.products) === "undefined")
+            if (typeof(SessionService.products) === "undefined")
             {
-                $scope.shared_data.products = ProductRepositoryService.query(null, function()
+                SessionService.products = ProductRepositoryService.query(null, function()
                 {
                     $scope.product = $scope.getProductDetail($routeParams.product_id);
                 });
@@ -114,21 +114,19 @@ appStoreControllers.controller("ProductDetailController", [
 appStoreControllers.controller("CartController", [
     "$scope",
     "CartRepositoryService",
-    "DataSharingService",
-    function($scope, CartRepositoryService, DataSharingService)
+    "SessionService",
+    function($scope, CartRepositoryService, SessionService)
     {
-        $scope.shared_data = DataSharingService;
+        $scope.session = SessionService;
 
         // constructor
         {
-            $scope.shared_data = DataSharingService;
-
-            if (typeof($scope.shared_data.customer) !== "undefined")
+            if (typeof(SessionService.customer) !== "undefined")
             {
-                CartRepositoryService.get($scope.shared_data.customer.id, function(cart)
+                CartRepositoryService.get(SessionService.customer.id, function(cart)
                 {
                     // TODO enable overwrite
-                    //$scope.shared_data.cart = cart;
+                    //SessionService.cart = cart;
                 });
             }
         };

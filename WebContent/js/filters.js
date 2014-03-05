@@ -34,8 +34,8 @@ appStoreFilters.filter("NewlineToBrFilter",
 
 
 appStoreFilters.filter("ImagePathFilter", [
-    "DataSharingService",
-    function (DataSharingService)
+    "SessionService",
+    function (SessionService)
     {
         return function(product)
         {
@@ -44,7 +44,7 @@ appStoreFilters.filter("ImagePathFilter", [
                 return "";
             }
 
-            return DataSharingService.getImagePathFromProduct(product);
+            return SessionService.getImagePathFromProduct(product);
         };
     }
 ]);
@@ -52,8 +52,8 @@ appStoreFilters.filter("ImagePathFilter", [
 
 
 appStoreFilters.filter("ReferenceURLFilter", [
-    "DataSharingService",
-    function (DataSharingService)
+    "SessionService",
+    function (SessionService)
     {
         return function(product)
         {
@@ -62,7 +62,7 @@ appStoreFilters.filter("ReferenceURLFilter", [
                 return "";
             }
 
-            return DataSharingService.getReferenceURLFromProduct(product);
+            return SessionService.getReferenceURLFromProduct(product);
         };
     }
 ]);

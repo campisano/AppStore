@@ -2,7 +2,7 @@
     <h3>Aplicativos disponíveis:</h3>
     <hr/>
     <div class="row-fluid">
-        <div ng-repeat="product in shared_data.products | filter:shared_data.query | orderBy:shared_data.order_prop">
+        <div ng-repeat="product in session.products | filter:session.query | orderBy:session.order_prop">
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="panel panel-default">
                     <div class="panel-body">

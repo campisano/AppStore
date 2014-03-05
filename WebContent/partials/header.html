@@ -11,10 +11,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <table>
-                        <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="Nome, Descrição" ng-model="shared_data.query"/></td></tr>
+                        <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="Nome, Descrição" ng-model="session.query"/></td></tr>
                         <tr><td>Ordena por:&nbsp;</td>
                         <td>
-                            <select ng-model="shared_data.order_prop">
+                            <select ng-model="session.order_prop">
                                 <option value="name">Nome</option>
                                 <option value="price">Preço</option>
                                 <option value="size">Tamanho</option>
@@ -26,20 +26,20 @@
                     </table>
                 </li>
                 <li>
-                    <div ng-switch="typeof(shared_data.customer) !== 'undefined'">
+                    <div ng-switch="typeof(session.customer) !== 'undefined'">
                         <div ng-switch-when="true">
                             <div class="dropdown">
 	                            <div class="dropdown-toggle" data-toggle="dropdown">
-	                                <div class="glyphicon glyphicon-user"></div> {{ shared_data.customer.username }} <div class="caret"></div>
+	                                <div class="glyphicon glyphicon-user"></div> {{ session.customer.username }} <div class="caret"></div>
 	                            </div>
 	                            <ul class="dropdown-menu">
 	                                <li><a href="#account/modify">Alterar conta</a></li>
 	                                <li><a href="#account/logout">Sair</a></li>
 	                            </ul>
 	                        </div>
-                            <a href="#cart" class="glyphicon glyphicon-shopping-cart" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
-                                Itens: <b>{{ shared_data.cart.getNumOfProducts() }}</b><br/>
-                                Valor total: <b>{{ shared_data.cart.getTotalPrice() | currency }}</b>
+                            <a href="#cart" class="glyphicon glyphicon-shopping-cart" ng-disabled="session.cart.getNumOfProducts() < 1">
+                                Itens: <b>{{ session.cart.getNumOfProducts() }}</b><br/>
+                                Valor total: <b>{{ session.cart.getTotalPrice() | currency }}</b>
                             </a>
                         </div>
                         <div ng-switch-default class="dropdown">

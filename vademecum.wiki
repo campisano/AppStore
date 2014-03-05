@@ -36,6 +36,15 @@ http://www.codeproject.com/Articles/576246/A-Shopping-Cart-Application-Built-wit
 
 
 
+=== Angular and session ===
+
+* TODO: session persistence on the server and on page refresh
+
+http://stackoverflow.com/questions/14957450/maintaining-session-through-angular-js
+http://docs.angularjs.org/api/ngCookies/service/$cookieStore
+
+
+
 == Bootstrap ==
 
 
