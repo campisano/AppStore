@@ -60,7 +60,7 @@ appStoreControllers.controller("ProductDetailController", [
     function($scope, $routeParams, $http, ProductRepositoryService, DataSharingService)
     {
         var self = this;
-        
+
         self.getProductDetail = function(product_id)
         {
             for (var i = 0; i < $scope.shared_data.products.length; ++i)
@@ -73,7 +73,7 @@ appStoreControllers.controller("ProductDetailController", [
 
             throw "ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id;
         };
-        
+
         $scope.shared_data = DataSharingService;
 
         if (typeof($scope.shared_data.products) === "undefined")

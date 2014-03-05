@@ -19,7 +19,7 @@ appStoreApplication.config( [
             templateUrl: "partials/product_list.html",
             controller: "ProductListController"
         }).
-        when("/products/:product_id",
+        when("/products/:product_id*",
         {
             templateUrl: "partials/product_details.html",
             controller: "ProductDetailController"
