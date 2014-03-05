@@ -11,7 +11,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <table>
-                        <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="nome, plataforma" ng-model="shared_data.query"/></td></tr>
+                        <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="Nome, Descrição" ng-model="shared_data.query"/></td></tr>
                         <tr><td>Ordena por:&nbsp;</td>
                         <td>
                             <select ng-model="shared_data.order_prop">
@@ -26,32 +26,28 @@
                     </table>
                 </li>
                 <li>
-                    <div ng-switch="shared_data.customer.authenticated">
-                        <div ng-switch-when="true" class="dropdown">
-                            <div class="dropdown-toggle" data-toggle="dropdown">
-                                <div class="glyphicon glyphicon-user"></div>
-                                {{ shared_data.customer.login }}<b class="caret"></b>
-                            </div>
-                            <ul class="dropdown-menu">
-                                <li><a href="#account/modify">Alterar conta</a></li>
-                                <li><a href="#account/logout">Sair</a></li>
-                            </ul>
+                    <div ng-switch="typeof(shared_data.customer) !== 'undefined'">
+                        <div ng-switch-when="true">
+                            <div class="dropdown">
+	                            <div class="dropdown-toggle" data-toggle="dropdown">
+	                                <div class="glyphicon glyphicon-user"></div> {{ shared_data.customer.username }} <div class="caret"></div>
+	                            </div>
+	                            <ul class="dropdown-menu">
+	                                <li><a href="#account/modify">Alterar conta</a></li>
+	                                <li><a href="#account/logout">Sair</a></li>
+	                            </ul>
+	                        </div>
+                            <a href="#cart" class="glyphicon glyphicon-shopping-cart" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
+                                Itens: <b>{{ shared_data.cart.getNumOfProducts() }}</b><br/>
+                                Valor total: <b>{{ shared_data.cart.getTotalPrice() | currency }}</b>
+                            </a>
                         </div>
                         <div ng-switch-default class="dropdown">
-                            <a href="#account/register">Registrar-se</a>
+                            <a href="#account/register" class="glyphicon glyphicon-log-in"> Registrar-se</a>
                         </div>
                     </div>
                 </li>
                 <li>
-                    <div class="well">
-                        <td class="tdRight" colspan="4" >
-                            <a href="#cart" title="Carrinho das compras" ng-disabled="shared_data.cart.getTotal() < 1">
-                                <i class="icon-shopping-cart" />
-                                <b>{{cart.getNumOfProducts()}}</b>Carrinho<b>{{cart.getTotalPrice() | currency}}</b>
-                            </a>
-                        </td>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

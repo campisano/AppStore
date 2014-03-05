@@ -4,7 +4,7 @@ function CustomerModel(id, email, username, password)
     var self = this;
     self.id = id;
     self.email = email;
-    self.username = name;
+    self.username = username;
     self.password = password;
 }
 

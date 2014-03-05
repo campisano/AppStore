@@ -8,6 +8,8 @@ var appStoreApplication = angular.module("AppStoreApplication", [
     "AppStoreAnimations"
 ]);
 
+
+
 // app url routes to templates
 appStoreApplication.config( [
     "$routeProvider",

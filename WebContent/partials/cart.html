@@ -45,10 +45,10 @@
         <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2s">
             <p class="text-info">
                 <button class="btn btn-block" onclick="window.location.href='#home'">
-                    <i class="icon-chevron-left"></i>Continua
+                    <div class="glyphicon glyphicon-chevron-left"></div> Escolher mais aplicativos
                 </button>
                 <button class="btn btn-block btn-danger" ng-click="shared_data.cart.clearItems()" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
-                    <i class="icon-trash icon-white"></i>Limpa o carrinho
+                    <div class="glyphicon glyphicon-trash"></div> Limpa o carrinho
                 </button>
             </p>
 
@@ -57,10 +57,10 @@
 
             <p class="text-info">
                 <button class="btn btn-block btn-primary" ng-click="shared_data.cart.checkout('PayPal')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
-                    <i class="icon-ok icon-white"/>Paga com PayPal
+                    <div class="glyphicon glyphicon-ok"></div> Paga com PayPal
                 </button>
                 <button class="btn btn-block btn-primary" ng-click="shared_data.cart.checkout('Google')" ng-disabled="shared_data.cart.getNumOfProducts() < 1">
-                    <i class="icon-ok icon-white"/>Paga com Google
+                    <div class="glyphicon glyphicon-ok"></div> Paga com Google
                 </button>
             </p>
         </div>
