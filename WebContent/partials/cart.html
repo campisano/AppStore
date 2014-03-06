@@ -41,19 +41,18 @@
         <!-- buttons -->
         <div>
             <div class="col-xs-6 push-left">
-                <button class="btn btn-block btn-primary" onclick="window.location.href='#home'">
+                <button class="btn btn-block btn-primary" onclick="window.location.href='#/'">
                     <div class="glyphicon glyphicon-chevron-left"></div> Adiciona mais
                 </button>
-                //TODO clearitems
-                <button class="btn btn-block btn-danger" ng-click="session.cart.clearItems()" ng-disabled="session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-danger" ng-click="session.cart.removeAllProducts()" ng-disabled="! session.cart.getNumOfProducts() > 0">
                     <div class="glyphicon glyphicon-trash"></div> Limpa o carrinho
                 </button>
             </div>
             <div class="col-xs-6 push-right">
-                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('PayPal')" ng-disabled="session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('PayPal')" ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com PayPal
                 </button>
-                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('Google')" ng-disabled="session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" ng-click="session.cart.checkout('Google')" ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com Google
                 </button>
             </div>

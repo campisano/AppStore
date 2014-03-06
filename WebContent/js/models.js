@@ -88,6 +88,14 @@ function CartModel()
         throw "CartModel.removeProduct() can't find a product with this id: " + product_id + ".";
     };
 
+    self.removeAllProducts = function()
+    {
+        while (self.products.length > 0)
+        {
+        	self.products.pop();
+        }
+    };
+
     // from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
     self.isNumber = function(n)
     {
@@ -102,7 +110,7 @@ function CartModel()
         {
             if(self.isNumber(self.products[i].price))
             {
-                total += self.products[i].price;
+                total += parseFloat(self.products[i].price);
             }
         }
 
