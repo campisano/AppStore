@@ -1,5 +1,5 @@
-// customer model
-function CustomerModel(id, email, username, password)
+// user model
+function UserModel(id, email, username, password)
 {
     var self = this;
     self.id = id;
@@ -79,7 +79,7 @@ function CartModel()
         {
             if (self.products[i].id === product_id)
             {
-            	self.products.splice(i, 1);
+                self.products.splice(i, 1);
 
                 return;
             }
@@ -88,13 +88,22 @@ function CartModel()
         throw "CartModel.removeProduct() can't find a product with this id: " + product_id + ".";
     };
 
+    // from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
+    self.isNumber = function(n)
+    {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    };
+
     self.getTotalPrice = function()
     {
         var total = 0.0;
 
         for (var i=0; i < self.products.length; ++i)
         {
-            total += self.products[i].price;
+            if(self.isNumber(self.products[i].price))
+            {
+                total += self.products[i].price;
+            }
         }
 
         return total;

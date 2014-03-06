@@ -26,24 +26,25 @@
                     </table>
                 </li>
                 <li>
-                    <div ng-switch="typeof(session.customer) !== 'undefined'">
+                    <div ng-switch="!!session.user">
                         <div ng-switch-when="true">
                             <div class="dropdown">
-	                            <div class="dropdown-toggle" data-toggle="dropdown">
-	                                <div class="glyphicon glyphicon-user"></div> {{ session.customer.username }} <div class="caret"></div>
-	                            </div>
-	                            <ul class="dropdown-menu">
-	                                <li><a href="#account/modify">Alterar conta</a></li>
-	                                <li><a href="#account/logout">Sair</a></li>
-	                            </ul>
-	                        </div>
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <div class="glyphicon glyphicon-user"></div> {{ session.user.username }} <div class="caret"></div>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#account/edit">Alterar conta</a></li>
+                                    <li><a href="#account/logout">Sair</a></li>
+                                </ul>
+                            </div>
                             <a href="#cart" class="glyphicon glyphicon-shopping-cart" ng-disabled="session.cart.getNumOfProducts() < 1">
-                                Itens: <b>{{ session.cart.getNumOfProducts() }}</b><br/>
-                                Valor total: <b>{{ session.cart.getTotalPrice() | currency }}</b>
+                                Itens: <b class="badge">{{ session.cart.getNumOfProducts() }}</b><br/>
+                                Valor total: <b class="badge">{{ session.cart.getTotalPrice() | currency }}</b>
                             </a>
                         </div>
-                        <div ng-switch-default class="dropdown">
-                            <a href="#account/register" class="glyphicon glyphicon-log-in"> Registrar-se</a>
+                        <div class="login_header_box" ng-switch-default>
+                            <div><a href="#account/login" class="glyphicon glyphicon-log-in"> Entrar</a></div>
+                            <div><a href="#account/register" class="glyphicon glyphicon-log-in"> Registrar-se</a></div>
                         </div>
                     </div>
                 </li>

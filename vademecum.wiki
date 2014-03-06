@@ -2,16 +2,16 @@
 
 
 
-== Angular ==
+== AngularJS ==
 
 
-=== Angular start points ===
+=== AngularJS start points ===
 
 http://docs.angularjs.org/tutorial
 
 
 
-=== Angular with Bootstrap ===
+=== AngularJS with Bootstrap ===
 
 http://www.sitepoint.com/understanding-twitter-bootstrap-3/
 http://willvincent.com/blog/angularjs-and-twitter-bootstrap-playing-nicely
@@ -21,7 +21,7 @@ http://pikock.github.io/bootstrap-magic/app/index.html#!/editor
 
 
 
-=== Angular navbar Bootstrap ===
+=== AngularJS navbar Bootstrap ===
 
 http://getbootstrap.com/examples/navbar-fixed-top/
 http://stackoverflow.com/questions/16325557/dynamic-links-in-twitter-bootstrap-navbar-in-angularjs
@@ -30,13 +30,13 @@ http://www.thinkster.io/angularjs/9jfpSmbx1j/angularjs-sharing-data-between-cont
 
 
 
-=== Angular and Shopping Cart ===
+=== AngularJS and Shopping Cart ===
 
 http://www.codeproject.com/Articles/576246/A-Shopping-Cart-Application-Built-with-AngularJS
 
 
 
-=== Angular and session ===
+=== AngularJS and session ===
 
 * TODO: session persistence on the server and on page refresh
 
@@ -45,7 +45,29 @@ http://docs.angularjs.org/api/ngCookies/service/$cookieStore
 
 
 
+=== AngularJS and authentication ===
+
+http://stackoverflow.com/questions/14791361/how-to-achieve-a-safe-authentication-system-in-an-angularjs-app
+http://blog.brunoscopelliti.com/deal-with-users-authentication-in-an-angularjs-web-app
+
+
+
+==== Rest service and 401 response status tips ====
+
+https://vickev.com/#!/article/authentication-in-single-page-applications-node-js-passportjs-angularjs
+
+
+
+=== AngularJS and JSON requests ===
+
+http://fdietz.github.io/recipes-with-angular-js/consuming-external-services/requesting-json-data-with-ajax.html
+
+
+
 == Bootstrap ==
+
+READ THIS: bootstrap misuse as antipattern
+http://ruby.bvision.com/blog/please-stop-embedding-bootstrap-classes-in-your-html
 
 
 

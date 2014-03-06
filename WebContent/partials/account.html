@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <h3>Autenticação:</h3>
+    <hr/>
+    <div ng-switch="action">
+        <!-- register -->
+        <form ng-switch-when="register">
+            <p>
+                <label class="control-label">E-mail: </label>
+                <input type="email" placeholder="e-mail" ng-model="user.email" ng-pattern="EMAIL_REGEXP" ngRequired="true"/>
+                <div class="error" ng-show="user.email.$error.required">Obrigatório!</div>
+                <div class="error" ng-show="user.email.$error.email">Email inválido!</div>
+            <p/>
+            <p>
+                <label class="control-label">Chave: </label>
+                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
+                <div class="error" ng-show="user.username.$error.required">Obrigatória!</div>
+            <p/>
+            <p>
+                <label class="control-label">Senha: </label>
+                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
+                <div class="error" ng-show="user.password.$error.required">Obrigatória!</div>
+            <p/>
+            <button class="btn btn-primary" ng-click="register()">Registrar-se</button>
+        </form>
+        <!-- edit -->
+        <form ng-switch-when="edit">
+            <p>
+                <label class="control-label">E-mail: </label>
+                <input type="email" placeholder="e-mail" ng-model="user.email" ng-pattern="EMAIL_REGEXP" ngRequired="true"/>
+            <p/>
+            <p>
+                <label class="control-label">Chave: </label>
+                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
+            <p/>
+            <p>
+                <label class="control-label">Senha: </label>
+                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
+            <p/>
+            <button class="btn btn-primary" ng-click="edit()">Alterar</button>
+        </form>
+        <!-- login -->
+        <form ng-switch-when="login">
+            <p>
+                <label class="control-label">Chave: </label>
+                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
+            <p/>
+            <p>
+                <label class="control-label">Senha: </label>
+                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
+            <p/>
+            <button class="btn btn-primary" ng-click="login()">Entrar</button>
+        </form>
+        <!-- logout -->
+        <form ng-switch-when="logout">
+            <p>Obrigado {{ user.login }}, volte sempre ...<p/>
+        </form>
+        <!-- else -->
+        <form ng-switch-default>
+            Ação inválida: '{{ action }}'.
+        </form>
+    </div>
+</div>

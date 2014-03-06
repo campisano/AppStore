@@ -20,12 +20,6 @@ appStoreControllers.controller("HeaderController", [
         // constructor
         {
             SessionService.order_prop = "name";
-
-            // TODO remove dummy customer
-            SessionService.customer = new CustomerModel("id", "email", "username", "password");
-
-            // TODO remove dummy cart
-            SessionService.cart = new CartModel();
         }
     }
 ]);
@@ -48,15 +42,15 @@ appStoreControllers.controller("FooterController", [
 // ProductListController
 appStoreControllers.controller("ProductListController", [
     "$scope",
-    "ProductRepositoryService",
+    "ProductService",
     "SessionService",
-    function ($scope, ProductRepositoryService, SessionService)
+    function ($scope, ProductService, SessionService)
     {
         $scope.session = SessionService;
 
         // constructor
         {
-            SessionService.products = ProductRepositoryService.query();
+            SessionService.products = ProductService.query();
         };
     }
 ]);
@@ -67,9 +61,9 @@ appStoreControllers.controller("ProductListController", [
 appStoreControllers.controller("ProductDetailController", [
     "$scope",
     "$routeParams",
-    "ProductRepositoryService",
+    "ProductService",
     "SessionService",
-    function($scope, $routeParams, ProductRepositoryService, SessionService)
+    function($scope, $routeParams, ProductService, SessionService)
     {
         $scope.session = SessionService;
 
@@ -95,7 +89,7 @@ appStoreControllers.controller("ProductDetailController", [
         {
             if (typeof(SessionService.products) === "undefined")
             {
-                SessionService.products = ProductRepositoryService.query(null, function()
+                SessionService.products = ProductService.query(null, function()
                 {
                     $scope.product = $scope.getProductDetail($routeParams.product_id);
                 });
@@ -110,20 +104,104 @@ appStoreControllers.controller("ProductDetailController", [
 
 
 
+
+// AccountController
+appStoreControllers.controller("AccountController", [
+    "$scope",
+    "$routeParams",
+    "$location",
+    "$timeout",
+    "AccountService",
+    "SessionService",
+    function($scope, $routeParams, $location, $timeout, AccountService, SessionService)
+    {
+        $scope.session = SessionService;
+
+        $scope.register = function ()
+        {
+            //if(AccountService.register($scope.user)) // TODO enable
+            {
+                SessionService.user = $scope.user;
+                SessionService.cart = new CartModel();
+                $location.url("/");
+            }/*
+            else
+            {
+                // TODO
+            }*/
+        };
+
+        $scope.edit = function ()
+        {
+            //if(AccountService.edit($scope.user)) // TODO enable
+            {
+                SessionService.user = $scope.user;
+                $location.url("/");
+            }/*
+            else
+            {
+                // TODO
+            }*/
+        };
+
+        $scope.login = function ()
+        {
+            //if(AccountService.login($scope.user)) // TODO enable
+            {
+                SessionService.user = $scope.user;
+                SessionService.cart = new CartModel();
+                $location.url("/");
+            }/*
+            else
+            {
+                // TODO
+            }*/
+        };
+
+        // constructor
+        {
+            $scope.action = $routeParams.action;
+            $scope.EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
+
+            if($routeParams.action == "register" || $routeParams.action == "login" )
+            {
+                $scope.user = new UserModel();
+            }
+            else if ($routeParams.action == "edit" || $routeParams.action == "logout" )
+            {
+                $scope.user = SessionService.user;
+            }
+
+            if($routeParams.action == "logout")
+            {
+                delete SessionService.user;
+                delete SessionService.cart;
+                
+                $timeout(function()
+                {
+                    $location.url("/");
+                }, 3000);
+            }
+        };
+    }
+]);
+
+
+
 // CartController
 appStoreControllers.controller("CartController", [
     "$scope",
-    "CartRepositoryService",
+    "CartService",
     "SessionService",
-    function($scope, CartRepositoryService, SessionService)
+    function($scope, CartService, SessionService)
     {
         $scope.session = SessionService;
 
         // constructor
         {
-            if (typeof(SessionService.customer) !== "undefined")
+            if (typeof(SessionService.user) !== "undefined")
             {
-                CartRepositoryService.get(SessionService.customer.id, function(cart)
+                CartService.get(SessionService.user.id, function(cart)
                 {
                     // TODO enable overwrite
                     //SessionService.cart = cart;

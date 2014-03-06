@@ -82,8 +82,8 @@ appStoreServices.factory("SessionService", [
 
 
 
-// ProductRepositoryService
-appStoreServices.factory("ProductRepositoryService", [
+// ProductService
+appStoreServices.factory("ProductService", [
     "$resource",
     "$http",
     function($resource, $http)
@@ -131,17 +131,38 @@ appStoreServices.factory("ProductRepositoryService", [
 
 
 
-// CartRepositoryService
-appStoreServices.factory("CartRepositoryService", [
+// AccountService
+appStoreServices.factory("AccountService", [
+    "$resource",
+    "$http",
+    function($resource, $http)
+    {
+        return $resource("data/:user_id.json", {},
+        {
+            get: {
+                method: "GET",
+                params: { user_id: "products" }, // TODO remove
+                cache: false,
+                responseType: "json",
+                isArray: true //TODO rempove
+            }
+        });
+    }
+]);
+
+
+
+// CartService
+appStoreServices.factory("CartService", [
      "$resource",
      "$http",
      function($resource, $http)
      {
-         return $resource("data/:customer_id.json", {},
+         return $resource("data/:user_id.json", {},
          {
              get: {
                  method: "GET",
-                 params: { customer_id: "products" }, // TODO remove
+                 params: { user_id: "products" }, // TODO remove
                  cache: false,
                  responseType: "json",
                  isArray: true //TODO rempove
