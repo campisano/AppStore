@@ -11,8 +11,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <table>
-                        <tr><td>Busca:&nbsp;</td><td><input type="text" placeholder="Nome, Descrição" ng-model="session.query"/></td></tr>
-                        <tr><td>Ordena por:&nbsp;</td>
+                        <tr><td>Busca: </td><td><input type="text" placeholder="Nome, Descrição" ng-model="session.query"/></td></tr>
+                        <tr><td>Ordena por: </td>
                         <td>
                             <select ng-model="session.order_prop">
                                 <option value="name">Nome</option>
@@ -37,18 +37,17 @@
                                     <li><a href="#account/logout">Sair</a></li>
                                 </ul>
                             </div>
-                            <a href="#cart" class="glyphicon glyphicon-shopping-cart" ng-disabled="session.cart.getNumOfProducts() < 1">
+                            <a href="#cart" class="glyphicon glyphicon-shopping-cart">
                                 Itens: <b class="badge">{{ session.cart.getNumOfProducts() }}</b><br/>
                                 Valor total: <b class="badge">{{ session.cart.getTotalPrice() | currency }}</b>
                             </a>
                         </div>
-                        <div class="login_header_box" ng-switch-default>
+                        <div class="login_header_box" ng-switch-default="">
                             <div><a href="#account/login" class="glyphicon glyphicon-log-in"> Entrar</a></div>
                             <div><a href="#account/register" class="glyphicon glyphicon-log-in"> Registrar-se</a></div>
                         </div>
                     </div>
                 </li>
-                <li>
             </ul>
         </div>
     </div>
