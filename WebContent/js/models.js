@@ -36,17 +36,42 @@ function StoreModel()
 
     self.addProduct = function(product)
     {
-        if(! product instanceof ProductModel)
+        if( product === null)
         {
-            throw "StoreModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product) + ".";
+            throw new Error("StoreModel.addProduct() parameter must be a ProductModel, it's null");
+        }
+        
+        if(! (product instanceof ProductModel))
+        {
+            throw new Error("StoreModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product));
         }
 
-        if(self.products.filter(function (item) { return item.id === product.id; }))
+        if(self.contains(product.id))
         {
-            throw "StoreModel.addProduct() alredy exist a product with same id: " + product.id + ".";
+            throw new Error("StoreModel.addProduct() alredy exist a product with same id: " + product.id);
         }
 
         self.products.push(product);
+    };
+
+    // TODO duplicated with CartModel
+    self.contains = function(product_id)
+    {
+        for(var i = 0; i < self.products.length; ++i)
+        {
+            if (self.products[i].id === product_id)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    // TODO duplicated with CartModel
+    self.getNumOfProducts = function()
+    {
+        return self.products.length;
     };
 }
 
@@ -60,14 +85,19 @@ function CartModel()
 
     self.addProduct = function(product)
     {
-        if(! product instanceof ProductModel)
+        if( product === null)
         {
-            throw "CartModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product) + ".";
+            throw new Error("CartModel.addProduct() parameter must be a ProductModel, it's null");
+        }
+
+        if(! (product instanceof ProductModel))
+        {
+            throw new Error("CartModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product));
         }
 
         if(self.contains(product.id))
         {
-            throw "CartModel.addProduct() alredy exist a product with same id: " + product.id + ".";
+            throw new Error("CartModel.addProduct() alredy exist a product with same id: " + product.id);
         }
 
         self.products.push(product);
@@ -85,17 +115,18 @@ function CartModel()
             }
         }
         
-        throw "CartModel.removeProduct() can't find a product with this id: " + product_id + ".";
+        throw new Error("CartModel.removeProduct() can't find a product with this id: " + product_id);
     };
 
     self.removeAllProducts = function()
     {
         while (self.products.length > 0)
         {
-        	self.products.pop();
+            self.products.pop();
         }
     };
 
+    // TODO util funtion
     // from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
     self.isNumber = function(n)
     {
@@ -117,11 +148,13 @@ function CartModel()
         return total;
     };
 
+    // TODO duplicated with StoreModel
     self.getNumOfProducts = function()
     {
         return self.products.length;
     };
 
+    // TODO duplicated with StoreModel
     self.contains = function(product_id)
     {
         for(var i = 0; i < self.products.length; ++i)
