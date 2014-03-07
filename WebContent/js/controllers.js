@@ -77,7 +77,7 @@ appStoreControllers.controller("ProductDetailController", [
                 }
             }
 
-            throw "ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id;
+            throw new Error("ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id);
         };
 
         $scope.setImage = function(image_url)

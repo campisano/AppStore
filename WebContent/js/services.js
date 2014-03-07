@@ -29,9 +29,9 @@ appStoreServices.factory("SessionService", [
             {
                 //TODO
                 /*
-                if(! product instanceof ProductModel)
+                if(! (product instanceof ProductModel))
                 {
-                    throw "SessionObject.getImagePathFromProduct() parameter must be a ProductModel";
+                    throw new Error("SessionObject.getImagePathFromProduct() parameter must be a ProductModel");
                 }
                 */
                 var image_dir = self.products_image_path;
@@ -56,9 +56,9 @@ appStoreServices.factory("SessionService", [
             {
                 //TODO
                 /*
-                if(! product instanceof ProductModel)
+                if(! (product instanceof ProductModel))
                 {
-                    throw "SessionObject.getReferenceURLFromProduct() parameter must be a ProductModel";
+                    throw new Error("SessionObject.getReferenceURLFromProduct() parameter must be a ProductModel");
                 }
                 */
                 var url = "";
