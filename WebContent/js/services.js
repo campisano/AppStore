@@ -106,7 +106,28 @@ appStoreServices.factory("ProductService", [
                     responseType: "json",
                     isArray: true
                 }).
-                success(fn_success).
+                success(function(data, status, headers, config)
+                {
+                    var products = new Array();
+
+                    for(var i = 0; i < data.length; ++i)
+                    {
+                        products.push(new ProductModel(
+                            data[i].id,
+                            data[i].name,
+                            data[i].price,
+                            data[i].version,
+                            data[i].size,
+                            data[i].system,
+                            data[i].type,
+                            data[i].category,
+                            data[i].age,
+                            data[i].description
+                        ));
+                    }
+
+                    fn_success(products, status, headers, config);
+                }).
                 error(fn_error);
             };
         }
