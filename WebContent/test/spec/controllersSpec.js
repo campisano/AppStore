@@ -81,6 +81,11 @@ describe("AppStoreApplication models", function()
             expect(function(){ new StoreModel().addProduct(null); }).toThrowError(Error);
         });
 
+        it("addProduct(\"\") throw an Error exception", function()
+        {
+            expect(function(){ new StoreModel().addProduct(""); }).toThrowError(Error);
+        });
+
         it("addProduct(new Object()) throw an Error exception", function()
         {
             expect(function(){ new StoreModel().addProduct(new Object()); }).toThrowError(Error);
