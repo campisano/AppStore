@@ -10,7 +10,7 @@ var appStoreServices = angular.module("AppStoreServices", [
 appStoreServices.factory("SessionService", [
     function()
     {
-        function SessionObject ()
+        function SessionObject()
         {
             var self = this;
             self.windows_system = "Windows Phone";
@@ -88,44 +88,30 @@ appStoreServices.factory("ProductService", [
     "$http",
     function($resource, $http)
     {
-        /*
-        this.getPhoneDetail = new function(phoneId)
+        function ProductServiceObject()
         {
-            $http({
-                method: 'GET',
-                url: 'phones/' + phoneId + '.json',
-                cache: false,
-                responseType: 'json'
-            }).
-            success(function(data, status, headers, config) {
-                // this callback will be called asynchronously
-                // when the response is available
-            }).
-            error(function(data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-        };
-        */
+            var self = this;
 
-        // Example:
-        // PhoneService.query({'name':'fooBar'},{'Id':1});
-        // Result URL: phones/1.json?name=fooBar
-        return $resource("data/:product_id.json", {},
-        {
-            query: {
-                method: "GET",
-                params: { product_id: "products" },
-                cache: false,
-                responseType: "json",
-                isArray: true
-            },
-            get: {
-                method: "GET",
-                cache: false,
-                responseType: "json"
-            }
-        });
+            self.getProductList = function(fn_success, fn_error)
+            {
+                self.getProductDetail(fn_success, fn_error, "products");
+            };
+
+            self.getProductDetail = function(fn_success, fn_error, product_id)
+            {
+                $http({
+                    method: "GET",
+                    url: "data/" + product_id + ".json",
+                    cache: false,
+                    responseType: "json",
+                    isArray: true
+                }).
+                success(fn_success).
+                error(fn_error);
+            };
+        }
+
+        return new ProductServiceObject();
     }
 ]);
 

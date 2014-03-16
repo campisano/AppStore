@@ -50,7 +50,15 @@ appStoreControllers.controller("ProductListController", [
 
         // constructor
         {
-            SessionService.products = ProductService.query();
+            ProductService.getProductList(
+                function(data, status, headers, config)
+                {
+                    SessionService.products = data;
+                },
+                function(data, status, headers, config) {
+                    alert(status);
+                }
+            );
         };
     }
 ]);
@@ -89,10 +97,16 @@ appStoreControllers.controller("ProductDetailController", [
         {
             if (typeof(SessionService.products) === "undefined")
             {
-                SessionService.products = ProductService.query(null, function()
-                {
-                    $scope.product = $scope.getProductDetail($routeParams.product_id);
-                });
+                ProductService.getProductDetail(
+                    function(data, status, headers, config)
+                    {
+                        SessionService.products = data;
+                    },
+                    function(data, status, headers, config) {
+                        alert(status);
+                    },
+                    $routeParams.product_id
+                );
             }
             else
             {
