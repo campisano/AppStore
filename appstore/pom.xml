@@ -176,7 +176,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>${tomcat7-maven-plugin.version}</version>
                 <configuration>
-                    <path>/</path>
+                    <path>/AppStore</path>
                 </configuration>
             </plugin>
         </plugins>
