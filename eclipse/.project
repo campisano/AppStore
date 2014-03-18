@@ -37,27 +37,27 @@
 		<link>
 			<name>WebContent</name>
 			<type>2</type>
-			<location>/home/campisano/eclipse/jee/appstore/appstore/src/main/webapp</location>
+			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/webapp</locationURI>
 		</link>
 		<link>
 			<name>lib</name>
 			<type>2</type>
-			<location>/home/campisano/eclipse/jee/appstore/appstore/target/appstore/WEB-INF/lib</location>
+			<locationURI>PARENT-1-PARENT_LOC/appstore/target/appstore/WEB-INF/lib</locationURI>
 		</link>
 		<link>
 			<name>main</name>
 			<type>2</type>
-			<location>/home/campisano/eclipse/jee/appstore/appstore/src/main/java</location>
+			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/java</locationURI>
 		</link>
 		<link>
 			<name>resources</name>
 			<type>2</type>
-			<location>/home/campisano/eclipse/jee/appstore/appstore/src/main/resources</location>
+			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/resources</locationURI>
 		</link>
 		<link>
 			<name>test</name>
 			<type>2</type>
-			<location>/home/campisano/eclipse/jee/appstore/appstore/src/test/java</location>
+			<locationURI>PARENT-1-PARENT_LOC/appstore/src/test/java</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
