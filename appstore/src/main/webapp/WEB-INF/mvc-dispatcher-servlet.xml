@@ -20,13 +20,11 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!-- Use @Component annotations for bean definitions -->
+    <context:component-scan base-package="org.appstore.view"/>
     <context:component-scan base-package="org.appstore.controller"/>
     <context:component-scan base-package="org.appstore.domain"/>
     <context:component-scan base-package="org.appstore.infrastructure"/>
     <context:component-scan base-package="org.appstore.persistence"/>
-    <context:component-scan base-package="org.appstore.presentation"/>
-
-    <jpa:repositories base-package="org.appstore.controller"/>
 
     <mvc:annotation-driven/>
 
