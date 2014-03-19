@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="AppStoreApplication">
+<html lang="en" data-ng-app="AppStoreApplication">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,9 +36,9 @@
     </head>
     <body>
         <div class="view-container">
-            <div ng-controller="HeaderController" ng-include="'partials/header.html'"></div>
-            <div ng-view="" class="view-frame" autoscroll="true"></div>
-            <div ng-controller="FooterController" ng-include="'partials/footer.html'"></div>
+            <div data-ng-controller="HeaderController" data-ng-include="'partials/header.html'"></div>
+            <div data-ng-view="" class="view-frame" data-autoscroll="true"></div>
+            <div data-ng-controller="FooterController" data-ng-include="'partials/footer.html'"></div>
         </div>
     </body>
 </html>

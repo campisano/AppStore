@@ -2,14 +2,14 @@
     <h3>Aplicativos disponíveis:</h3>
     <hr/>
     <div class="row-fluid">
-        <div ng-repeat="product in session.products | filter:session.query | orderBy:session.order_prop">
+        <div data-ng-repeat="product in session.products | filter:session.query | orderBy:session.order_prop">
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="container-fluid">
                             <div class="row-fluid">
                                 <a href="#/products/{{ product.id }}">
-                                    <img ng-src="{{ product | ImagePathFilter }}" class="img-responsive"/>
+                                    <img data-ng-src="{{ product | ImagePathFilter }}" class="img-responsive"/>
                                 </a>
                             </div>
                         </div>
@@ -27,17 +27,17 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="$index != 0">
-                <div ng-if="($index +1) % 6 == 0">
+            <div data-ng-if="$index != 0">
+                <div data-ng-if="($index +1) % 6 == 0">
                     <div class="clearfix visible-lg"></div>
                 </div>
-                <div ng-if="($index +1) % 4 == 0">
+                <div data-ng-if="($index +1) % 4 == 0">
                     <div class="clearfix visible-md"></div>
                 </div>
-                <div ng-if="($index +1) % 3 == 0">
+                <div data-ng-if="($index +1) % 3 == 0">
                     <div class="clearfix visible-sm"></div>
                 </div>
-                <div ng-if="($index +1) % 2 == 0">
+                <div data-ng-if="($index +1) % 2 == 0">
                     <div class="clearfix visible-xs"></div>
                 </div>
             </div>

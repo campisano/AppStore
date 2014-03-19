@@ -5,10 +5,10 @@
             <h3><a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
         </div>
         <a href="{{ product | ReferenceURLFilter }}">
-            <img height="125px" ng-src="{{ product | ImagePathFilter }}" />
+            <img height="125px" data-ng-src="{{ product | ImagePathFilter }}" />
         </a>
         <div class="row-fluid">
-            <button class="btn btn-success" ng-click="session.cart.addProduct(product)" ng-disabled="!session.cart">
+            <button class="btn btn-success" data-ng-click="session.cart.addProduct(product)" data-ng-disabled="!session.cart">
                 <div class="glyphicon glyphicon-ok"></div> Adiciona ao carrinho
             </button>
         </div>
@@ -20,19 +20,19 @@
     </div>
     <hr/>
     <div>
-        <img ng-src="{{ img }}" ng-repeat="img in product.images" ng-class="{ active: main_image_url == img }" />
+        <img data-ng-src="{{ img }}" data-ng-repeat="img in product.images" data-ng-class="{ active: main_image_url == img }" />
     </div>
-    <h1 ng-bind-html="product.name | NewlineToBrFilter"></h1>
-    <p ng-bind-html="product.description | NewlineToBrFilter"></p>
+    <h1 data-ng-bind-html="product.name | NewlineToBrFilter"></h1>
+    <p data-ng-bind-html="product.description | NewlineToBrFilter"></p>
     <ul>
-        <li ng-repeat="img in product.images"><img ng-src="{{ img }}" ng-mouseenter="setImage(img)"/></li>
+        <li data-ng-repeat="img in product.images"><img data-ng-src="{{ img }}" data-ng-mouseenter="setImage(img)"/></li>
     </ul>
     <ul>
         <li>
             <div>Availability and Networks</div>
             <dl>
                 <dt>Availability</dt>
-                <dd ng-repeat="availability in product.availability">{{ availability }}</dd>
+                <dd data-ng-repeat="availability in product.availability">{{ availability }}</dd>
             </dl>
         </li>
         <li>

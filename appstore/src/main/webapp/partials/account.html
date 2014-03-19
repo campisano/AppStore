@@ -1,61 +1,61 @@
 <div class="container-fluid">
     <h3>Autenticação:</h3>
     <hr/>
-    <div ng-switch="action">
+    <div data-ng-switch="action">
         <!-- register -->
-        <form ng-switch-when="register">
+        <form data-ng-switch-when="register">
             <div>
                 <label class="control-label">E-mail: </label>
-                <input type="email" placeholder="e-mail" ng-model="user.email" ng-pattern="EMAIL_REGEXP" ngRequired="true"/>
-                <div class="error" ng-show="user.email.$error.required">Obrigatório!</div>
-                <div class="error" ng-show="user.email.$error.email">Email inválido!</div>
+                <input type="email" placeholder="e-mail" data-ng-model="user.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
+                <div class="error" data-ng-show="user.email.$error.required">Obrigatório!</div>
+                <div class="error" data-ng-show="user.email.$error.email">Email inválido!</div>
             </div>
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
-                <div class="error" ng-show="user.username.$error.required">Obrigatória!</div>
+                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
+                <div class="error" data-ng-show="user.username.$error.required">Obrigatória!</div>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
-                <div class="error" ng-show="user.password.$error.required">Obrigatória!</div>
+                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
+                <div class="error" data-ng-show="user.password.$error.required">Obrigatória!</div>
             </div>
-            <button class="btn btn-primary" ng-click="register()">Registrar-se</button>
+            <button class="btn btn-primary" data-ng-click="register()">Registrar-se</button>
         </form>
         <!-- edit -->
-        <form ng-switch-when="edit">
+        <form data-ng-switch-when="edit">
             <div>
                 <label class="control-label">E-mail: </label>
-                <input type="email" placeholder="e-mail" ng-model="user.email" ng-pattern="EMAIL_REGEXP" ngRequired="true"/>
+                <input type="email" placeholder="e-mail" data-ng-model="user.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
+                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
+                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
             </div>
-            <button class="btn btn-primary" ng-click="edit()">Alterar</button>
+            <button class="btn btn-primary" data-ng-click="edit()">Alterar</button>
         </form>
         <!-- login -->
-        <form ng-switch-when="login">
+        <form data-ng-switch-when="login">
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" ng-model="user.username" ngRequired="true"/>
+                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" ng-model="password" ngRequired="true"/>
+                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
             </div>
-            <button class="btn btn-primary" ng-click="login()">Entrar</button>
+            <button class="btn btn-primary" data-ng-click="login()">Entrar</button>
         </form>
         <!-- logout -->
-        <form ng-switch-when="logout">
+        <form data-ng-switch-when="logout">
             <div>Obrigado {{ user.login }}, volte sempre ...</div>
         </form>
         <!-- else -->
-        <form ng-switch-default="">
+        <form data-ng-switch-default="">
             Ação inválida: '{{ action }}'.
         </form>
     </div>
