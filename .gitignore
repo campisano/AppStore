@@ -1,7 +1,3 @@
-/build
-/.classpath
-/.project
-/.settings
 /appstore/db
 /appstore/log
 /appstore/target

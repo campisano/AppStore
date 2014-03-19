@@ -37,27 +37,33 @@
 		<link>
 			<name>WebContent</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/webapp</locationURI>
+			<locationURI>SOURCE_LOC/src/main/webapp</locationURI>
 		</link>
 		<link>
 			<name>lib</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PARENT_LOC/appstore/target/appstore/WEB-INF/lib</locationURI>
+			<locationURI>SOURCE_LOC/target/appstore/WEB-INF/lib</locationURI>
 		</link>
 		<link>
 			<name>main</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/java</locationURI>
+			<locationURI>SOURCE_LOC/src/main/java</locationURI>
 		</link>
 		<link>
 			<name>resources</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PARENT_LOC/appstore/src/main/resources</locationURI>
+			<locationURI>SOURCE_LOC/src/main/resources</locationURI>
 		</link>
 		<link>
 			<name>test</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PARENT_LOC/appstore/src/test/java</locationURI>
+			<locationURI>SOURCE_LOC/src/test/java</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>SOURCE_LOC</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/appstore</value>
+		</variable>
+	</variableList>
 </projectDescription>
