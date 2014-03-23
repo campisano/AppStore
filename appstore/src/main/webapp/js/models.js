@@ -1,11 +1,11 @@
 // user model
-function UserModel(id, email, username, password)
+function UserModel(id, session_id, username, email)
 {
     var self = this;
     self.id = id;
-    self.email = email;
+    self.session_id = session_id;
     self.username = username;
-    self.password = password;
+    self.email = email;
 }
 
 

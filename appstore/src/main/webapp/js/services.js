@@ -1,7 +1,5 @@
 // AppStoreServices module
-var appStoreServices = angular.module("AppStoreServices", [
-    "ngResource"
-]);
+var appStoreServices = angular.module("AppStoreServices", []);
 
 
 
@@ -84,9 +82,8 @@ appStoreServices.factory("SessionService", [
 
 // ProductService
 appStoreServices.factory("ProductService", [
-    "$resource",
     "$http",
-    function($resource, $http)
+    function($http)
     {
         function ProductServiceObject()
         {
@@ -103,37 +100,37 @@ appStoreServices.factory("ProductService", [
                 }).
                 success(function(data, status, headers, config)
                 {
-                    if(data.error != null)
+                    if(data.error == null)
                     {
-                        fn_error(data.error);
+                        var products = new Array();
+
+                        for(var i = 0; i < data.response.length; ++i)
+                        {
+                            products.push(new ProductModel(
+                                data.response[i].id,
+                                data.response[i].name,
+                                data.response[i].price,
+                                data.response[i].version,
+                                data.response[i].size,
+                                data.response[i].system,
+                                data.response[i].type,
+                                data.response[i].category,
+                                data.response[i].age,
+                                data.response[i].description
+                            ));
+                        }
+
+                        fn_success(products);
                     }
                     else
                     {
-                       var products = new Array();
-
-                       for(var i = 0; i < data.response.length; ++i)
-                       {
-                           products.push(new ProductModel(
-                               data.response[i].id,
-                               data.response[i].name,
-                               data.response[i].price,
-                               data.response[i].version,
-                               data.response[i].size,
-                               data.response[i].system,
-                               data.response[i].type,
-                               data.response[i].category,
-                               data.response[i].age,
-                               data.response[i].description
-                           ));
-                       }
-
-                       fn_success(products);
+                        fn_error(data.error);
                     }
                 }).
                 error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
             };
 
-            self.getProductDetail = function(fn_success, fn_error, product_id)
+            self.getProductDetail = function(product_id, fn_success, fn_error)
             {
                 $http({
                     method: "GET",
@@ -143,26 +140,26 @@ appStoreServices.factory("ProductService", [
                 }).
                 success(function(data, status, headers, config)
                 {
-                    if(data.error != null)
+                    if(data.error == null)
                     {
-                        fn_error(data.error);
+                        var product = new ProductModel(
+                                data.response.id,
+                                data.response.name,
+                                data.response.price,
+                                data.response.version,
+                                data.response.size,
+                                data.response.system,
+                                data.response.type,
+                                data.response.category,
+                                data.response.age,
+                                data.response.description
+                            );
+
+                        fn_success(product);
                     }
                     else
                     {
-                       var product = new ProductModel(
-                               data.response.id,
-                               data.response.name,
-                               data.response.price,
-                               data.response.version,
-                               data.response.size,
-                               data.response.system,
-                               data.response.type,
-                               data.response.category,
-                               data.response.age,
-                               data.response.description
-                           );
-
-                       fn_success(product);
+                        fn_error(data.error);
                     }
                 }).
                 error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
@@ -177,20 +174,45 @@ appStoreServices.factory("ProductService", [
 
 // AccountService
 appStoreServices.factory("AccountService", [
-    "$resource",
     "$http",
     function($resource, $http)
     {
-        return $resource("data/:user_id.json", {},
+        function AccountServiceObject()
         {
-            get: {
-                method: "GET",
-                params: { user_id: "products" }, // TODO remove
-                cache: false,
-                responseType: "json",
-                isArray: true //TODO rempove
-            }
-        });
+            var self = this;
+
+            self.login = function(username, password, fn_success, fn_error)
+            {
+                $http({
+                    method: "POST",
+                    data: { username: username, password: password },
+                    url: "rest/rest/account/login",
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error == null)
+                    {
+                        var user = new UserModel(
+                            data.response.id,
+                            data.response.session_id,
+                            data.response.username,
+                            data.response.email
+                        );
+
+                        fn_success(user);
+                    }
+                    else
+                    {
+                        fn_error(data.error);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+            };
+        }
+
+        return new AccountServiceObject();
     }
 ]);
 
@@ -198,19 +220,54 @@ appStoreServices.factory("AccountService", [
 
 // CartService
 appStoreServices.factory("CartService", [
-     "$resource",
      "$http",
-     function($resource, $http)
+     function($http)
      {
-         return $resource("data/:user_id.json", {},
+         function CartServiceObject()
          {
-             get: {
-                 method: "GET",
-                 params: { user_id: "products" }, // TODO remove
-                 cache: false,
-                 responseType: "json",
-                 isArray: true //TODO rempove
-             }
-         });
+             var self = this;
+
+             self.getCart = function(session_id, fn_success, fn_error)
+             {
+                 $http({
+                     method: "GET",
+                     url: "rest/cart/" + session_id,
+                     cache: false,
+                     responseType: "json"
+                 }).
+                 success(function(data, status, headers, config)
+                 {
+                     if(data.error == null)
+                     {
+                         var cart = new CartModel();
+
+                         for(var i = 0; i < data.response.products.length; ++i)
+                         {
+                             cart.addProduct(new ProductModel(
+                                 data.response.products[i].id,
+                                 data.response.products[i].name,
+                                 data.response.products[i].price,
+                                 data.response.products[i].version,
+                                 data.response.products[i].size,
+                                 data.response.products[i].system,
+                                 data.response.products[i].type,
+                                 data.response.products[i].category,
+                                 data.response.products[i].age,
+                                 data.response.products[i].description
+                             ));
+                         }
+
+                         fn_success(cart);
+                     }
+                     else
+                     {
+                         fn_error(data.error);
+                     }
+                 }).
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+             };
+         }
+
+         return new CartServiceObject();
     }
 ]);

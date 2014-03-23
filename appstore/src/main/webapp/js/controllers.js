@@ -78,15 +78,15 @@ appStoreControllers.controller("ProductDetailController", [
         $scope.getProductDetail = function(product_id)
         {
             ProductService.getProductDetail(
-                    function(data)
-                    {
-                    	$scope.product = data;
-                    },
-                    function(data) {
-                        alert("ERROR on ProductDetailController.getProductDetail():\n" + data);
-                    },
-                    $routeParams.product_id
-                );
+                $routeParams.product_id,
+                function(data)
+                {
+                	$scope.product = data;
+                },
+                function(data) {
+                    alert("ERROR on ProductDetailController.getProductDetail():\n" + data);
+                }
+            );
         };
 
         $scope.setImage = function(image_url)
@@ -200,10 +200,14 @@ appStoreControllers.controller("CartController", [
         {
             if (typeof(SessionService.user) !== "undefined")
             {
-                CartService.get(SessionService.user.id, function(cart)
-                {
-                    // TODO enable overwrite
-                    //SessionService.cart = cart;
+                CartService.getCart(
+                    SessionService.user.session_id,
+                    function(data)
+                    {
+                        SessionService.cart = data;
+                    },
+                    function(data) {
+                        alert("ERROR on CartController.getCart():\n" + data);
                 });
             }
         };
