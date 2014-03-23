@@ -94,41 +94,78 @@ appStoreServices.factory("ProductService", [
 
             self.getProductList = function(fn_success, fn_error)
             {
-                self.getProductDetail(fn_success, fn_error, "products");
-            };
-
-            self.getProductDetail = function(fn_success, fn_error, product_id)
-            {
                 $http({
                     method: "GET",
-                    url: "data/" + product_id + ".json",
+                    url: "rest/product/list",
                     cache: false,
                     responseType: "json",
                     isArray: true
                 }).
                 success(function(data, status, headers, config)
                 {
-                    var products = new Array();
-
-                    for(var i = 0; i < data.length; ++i)
+                    if(data.error != null)
                     {
-                        products.push(new ProductModel(
-                            data[i].id,
-                            data[i].name,
-                            data[i].price,
-                            data[i].version,
-                            data[i].size,
-                            data[i].system,
-                            data[i].type,
-                            data[i].category,
-                            data[i].age,
-                            data[i].description
-                        ));
+                        fn_error(data.error);
                     }
+                    else
+                    {
+                       var products = new Array();
 
-                    fn_success(products, status, headers, config);
+                       for(var i = 0; i < data.response.length; ++i)
+                       {
+                           products.push(new ProductModel(
+                               data.response[i].id,
+                               data.response[i].name,
+                               data.response[i].price,
+                               data.response[i].version,
+                               data.response[i].size,
+                               data.response[i].system,
+                               data.response[i].type,
+                               data.response[i].category,
+                               data.response[i].age,
+                               data.response[i].description
+                           ));
+                       }
+
+                       fn_success(products);
+                    }
                 }).
-                error(fn_error);
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+            };
+
+            self.getProductDetail = function(fn_success, fn_error, product_id)
+            {
+                $http({
+                    method: "GET",
+                    url: "rest/product/" + product_id.replace("/", "|"),
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error != null)
+                    {
+                        fn_error(data.error);
+                    }
+                    else
+                    {
+                       var product = new ProductModel(
+                               data.response.id,
+                               data.response.name,
+                               data.response.price,
+                               data.response.version,
+                               data.response.size,
+                               data.response.system,
+                               data.response.type,
+                               data.response.category,
+                               data.response.age,
+                               data.response.description
+                           );
+
+                       fn_success(product);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
             };
         }
 

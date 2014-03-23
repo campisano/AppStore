@@ -3,15 +3,15 @@ package org.appstore.view;
 import org.appstore.domain.Product;
 
 public class GetProductResponse {
-	private long id;
+	private String id;
 	private String name;
-	private double price;
+	private String price;
 	private String version;
-	private int size;
+	private String size;
 	private String system;
-	private int type;
-	private int category;
-	private int age;
+	private String type;
+	private String category;
+	private String age;
 	private String description;
 
 	public GetProductResponse() {
@@ -31,11 +31,11 @@ public class GetProductResponse {
 		this.setDescription(product.getDescription());
 	}
 
-	public long getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -47,11 +47,11 @@ public class GetProductResponse {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
@@ -63,11 +63,11 @@ public class GetProductResponse {
 		this.version = version;
 	}
 
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
@@ -79,27 +79,27 @@ public class GetProductResponse {
 		this.system = system;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public int getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 

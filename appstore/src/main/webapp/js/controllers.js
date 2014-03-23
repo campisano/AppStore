@@ -51,12 +51,12 @@ appStoreControllers.controller("ProductListController", [
         // constructor
         {
             ProductService.getProductList(
-                function(data, status, headers, config)
+                function(data)
                 {
                     SessionService.products = data;
                 },
-                function(data, status, headers, config) {
-                    alert(status);
+                function(data) {
+                    alert("ERROR on ProductDetailController.getProductList():\n" + data);
                 }
             );
         };
@@ -77,15 +77,16 @@ appStoreControllers.controller("ProductDetailController", [
 
         $scope.getProductDetail = function(product_id)
         {
-            for (var i = 0; i < SessionService.products.length; ++i)
-            {
-                if (SessionService.products[i].id === product_id)
-                {
-                    return SessionService.products[i];
-                }
-            }
-
-            throw new Error("ProductDetailController.getProductDetail() cannot find a product for this id: " + product_id);
+            ProductService.getProductDetail(
+                    function(data)
+                    {
+                    	$scope.product = data;
+                    },
+                    function(data) {
+                        alert("ERROR on ProductDetailController.getProductDetail():\n" + data);
+                    },
+                    $routeParams.product_id
+                );
         };
 
         $scope.setImage = function(image_url)
@@ -95,23 +96,7 @@ appStoreControllers.controller("ProductDetailController", [
 
         // constructor
         {
-            if (typeof(SessionService.products) === "undefined")
-            {
-                ProductService.getProductDetail(
-                    function(data, status, headers, config)
-                    {
-                        SessionService.products = data;
-                    },
-                    function(data, status, headers, config) {
-                        alert(status);
-                    },
-                    $routeParams.product_id
-                );
-            }
-            else
-            {
-                $scope.product = $scope.getProductDetail($routeParams.product_id);
-            }
+        	$scope.getProductDetail($routeParams.product_id);
         };
     }
 ]);
