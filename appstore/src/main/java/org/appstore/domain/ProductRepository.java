@@ -26,17 +26,19 @@ public class ProductRepository {
 
 	public OperationResultObject<List<Product>> read() {
 		try {
-			return new OperationResultObject<>(true, productDAO.read());
+			return new OperationResultObject<List<Product>>(true,
+					productDAO.read());
 		} catch (DAOException ex) {
-			return new OperationResultObject<>(false, ex.getMessage());
+			return new OperationResultObject<List<Product>>(false,
+					ex.getMessage());
 		}
 	}
 
 	public OperationResultObject<Product> read(String id) {
 		try {
-			return new OperationResultObject<>(true, productDAO.read(id));
+			return new OperationResultObject<Product>(true, productDAO.read(id));
 		} catch (DAOException ex) {
-			return new OperationResultObject<>(false, ex.getMessage());
+			return new OperationResultObject<Product>(false, ex.getMessage());
 		}
 	}
 
