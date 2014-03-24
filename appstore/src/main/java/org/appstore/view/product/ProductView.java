@@ -1,4 +1,4 @@
-package org.appstore.view;
+package org.appstore.view.product;
 
 import java.util.List;
 

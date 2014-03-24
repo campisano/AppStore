@@ -10,8 +10,6 @@ appStoreControllers.controller("HeaderController", [
     "SessionService",
     function HeaderController($scope, $location, SessionService) 
     {
-        $scope.session = SessionService;
-
         $scope.isActive = function (view_location)
         {
             return view_location === $location.path();
@@ -19,6 +17,8 @@ appStoreControllers.controller("HeaderController", [
 
         // constructor
         {
+            $scope.session = SessionService;
+
             SessionService.order_prop = "name";
         }
     }
@@ -33,7 +33,10 @@ appStoreControllers.controller("FooterController", [
     "SessionService",
     function FooterController($scope, $location, SessionService) 
     {
-        $scope.session = SessionService;
+        // constructor
+        {
+            $scope.session = SessionService;
+        };
     }
 ]);
 
@@ -46,10 +49,10 @@ appStoreControllers.controller("ProductListController", [
     "SessionService",
     function ($scope, ProductService, SessionService)
     {
-        $scope.session = SessionService;
-
         // constructor
         {
+            $scope.session = SessionService;
+
             ProductService.getProductList(
                 function(data)
                 {
@@ -73,15 +76,13 @@ appStoreControllers.controller("ProductDetailController", [
     "SessionService",
     function($scope, $routeParams, ProductService, SessionService)
     {
-        $scope.session = SessionService;
-
         $scope.getProductDetail = function(product_id)
         {
             ProductService.getProductDetail(
                 $routeParams.product_id,
                 function(data)
                 {
-                	$scope.product = data;
+                    $scope.product = data;
                 },
                 function(data) {
                     alert("ERROR on ProductDetailController.getProductDetail():\n" + data);
@@ -96,11 +97,12 @@ appStoreControllers.controller("ProductDetailController", [
 
         // constructor
         {
-        	$scope.getProductDetail($routeParams.product_id);
+            $scope.session = SessionService;
+
+            $scope.getProductDetail($routeParams.product_id);
         };
     }
 ]);
-
 
 
 
@@ -114,8 +116,6 @@ appStoreControllers.controller("AccountController", [
     "SessionService",
     function($scope, $routeParams, $location, $timeout, AccountService, SessionService)
     {
-        $scope.session = SessionService;
-
         $scope.register = function ()
         {
             //if(AccountService.register($scope.user)) // TODO enable
@@ -145,20 +145,25 @@ appStoreControllers.controller("AccountController", [
 
         $scope.login = function ()
         {
-            //if(AccountService.login($scope.user)) // TODO enable
-            {
-                SessionService.user = $scope.user;
-                SessionService.cart = new CartModel();
-                $location.url("/");
-            }/*
-            else
-            {
-                // TODO
-            }*/
+            AccountService.login(
+                $scope.form.username,
+                $scope.form.password,
+                function(data)
+                {
+                    SessionService.user = data;
+                    SessionService.cart = new CartModel();
+                    $location.url("/");
+                },
+                function(data) {
+                    alert("ERROR on AccountController.login():\n" + data);
+                }
+            );
         };
 
         // constructor
         {
+            $scope.session = SessionService;
+            $scope.form = new Object();
             $scope.action = $routeParams.action;
             $scope.EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
 
@@ -173,13 +178,10 @@ appStoreControllers.controller("AccountController", [
 
             if($routeParams.action == "logout")
             {
+                $scope.form.username = SessionService.user.username;
                 delete SessionService.user;
                 delete SessionService.cart;
-                
-                $timeout(function()
-                {
-                    $location.url("/");
-                }, 3000);
+                $timeout(function() { $location.url("/"); }, 3000);
             }
         };
     }
@@ -194,10 +196,10 @@ appStoreControllers.controller("CartController", [
     "SessionService",
     function($scope, CartService, SessionService)
     {
-        $scope.session = SessionService;
-
         // constructor
         {
+            $scope.session = SessionService;
+
             if (typeof(SessionService.user) !== "undefined")
             {
                 CartService.getCart(

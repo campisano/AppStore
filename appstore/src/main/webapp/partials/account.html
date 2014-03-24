@@ -6,19 +6,19 @@
         <form data-ng-switch-when="register">
             <div>
                 <label class="control-label">E-mail: </label>
-                <input type="email" placeholder="e-mail" data-ng-model="user.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
-                <div class="error" data-ng-show="user.email.$error.required">Obrigatório!</div>
-                <div class="error" data-ng-show="user.email.$error.email">Email inválido!</div>
+                <input type="email" placeholder="e-mail" data-ng-model="form.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
+                <div class="error" data-ng-show="form.email.$error.required">Obrigatório!</div>
+                <div class="error" data-ng-show="form.email.$error.email">Email inválido!</div>
             </div>
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
-                <div class="error" data-ng-show="user.username.$error.required">Obrigatória!</div>
+                <input type="text" placeholder="chave" data-ng-model="form.username" data-ngRequired="true"/>
+                <div class="error" data-ng-show="form.username.$error.required">Obrigatória!</div>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
-                <div class="error" data-ng-show="user.password.$error.required">Obrigatória!</div>
+                <input type="password" placeholder="senha" data-ng-model="form.password" data-ngRequired="true"/>
+                <div class="error" data-ng-show="password.$error.required">Obrigatória!</div>
             </div>
             <button class="btn btn-primary" data-ng-click="register()">Registrar-se</button>
         </form>
@@ -26,15 +26,15 @@
         <form data-ng-switch-when="edit">
             <div>
                 <label class="control-label">E-mail: </label>
-                <input type="email" placeholder="e-mail" data-ng-model="user.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
+                <input type="email" placeholder="e-mail" data-ng-model="form.email" data-ng-pattern="EMAIL_REGEXP" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
+                <input type="text" placeholder="chave" data-ng-model="form.username" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
+                <input type="password" placeholder="senha" data-ng-model="form.password" data-ngRequired="true"/>
             </div>
             <button class="btn btn-primary" data-ng-click="edit()">Alterar</button>
         </form>
@@ -42,17 +42,17 @@
         <form data-ng-switch-when="login">
             <div>
                 <label class="control-label">Chave: </label>
-                <input type="text" placeholder="chave" data-ng-model="user.username" data-ngRequired="true"/>
+                <input type="text" placeholder="chave" data-ng-model="form.username" data-ngRequired="true"/>
             </div>
             <div>
                 <label class="control-label">Senha: </label>
-                <input type="password" placeholder="senha" data-ng-model="password" data-ngRequired="true"/>
+                <input type="password" placeholder="senha" data-ng-model="form.password" data-ngRequired="true"/>
             </div>
             <button class="btn btn-primary" data-ng-click="login()">Entrar</button>
         </form>
         <!-- logout -->
         <form data-ng-switch-when="logout">
-            <div>Obrigado {{ user.login }}, volte sempre ...</div>
+            <div>Obrigado {{ form.username }}, volte sempre ...</div>
         </form>
         <!-- else -->
         <form data-ng-switch-default="">

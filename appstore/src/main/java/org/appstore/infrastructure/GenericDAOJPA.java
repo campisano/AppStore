@@ -36,7 +36,8 @@ public class GenericDAOJPA<T> {
 				tx.rollback();
 			}
 
-			throw new DAOException("ERROR GenericDAOJPA.create():\n", ex);
+			throw new DAOException("ERROR GenericDAOJPA.create():\n"
+					+ ex.getMessage(), ex);
 		}
 	}
 
@@ -47,7 +48,8 @@ public class GenericDAOJPA<T> {
 
 			return readList("SELECT e FROM " + entityName + " e");
 		} catch (Exception ex) {
-			throw new DAOException("ERROR GenericDAOJPA.read():\n", ex);
+			throw new DAOException("ERROR GenericDAOJPA.read():\n"
+					+ ex.getMessage(), ex);
 		}
 	}
 
@@ -58,7 +60,8 @@ public class GenericDAOJPA<T> {
 		try {
 			return entityManager.find(c, id);
 		} catch (RuntimeException ex) {
-			throw new DAOException("ERROR GenericDAOJPA.read():\n", ex);
+			throw new DAOException("ERROR GenericDAOJPA.read():\n"
+					+ ex.getMessage(), ex);
 		}
 	}
 
@@ -76,7 +79,7 @@ public class GenericDAOJPA<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected T readOne(String queryString, final Object... positionalParams) {
+	protected T readSingle(String queryString, final Object... positionalParams) {
 		Query query = entityManager.createQuery(queryString);
 		int i = 0;
 
@@ -103,7 +106,8 @@ public class GenericDAOJPA<T> {
 				logger.info("GenericDAOJPA UPDATE committed.");
 			}
 
-			throw new DAOException("ERROR GenericDAOJPA.update():\n", ex);
+			throw new DAOException("ERROR GenericDAOJPA.update():\n"
+					+ ex.getMessage(), ex);
 		}
 	}
 
@@ -124,7 +128,8 @@ public class GenericDAOJPA<T> {
 				tx.rollback();
 			}
 
-			throw new DAOException("ERROR GenericDAOJPA.delete():\n", ex);
+			throw new DAOException("ERROR GenericDAOJPA.delete():\n"
+					+ ex.getMessage(), ex);
 		}
 	}
 }

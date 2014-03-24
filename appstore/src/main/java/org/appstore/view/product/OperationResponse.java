@@ -1,4 +1,4 @@
-package org.appstore.view;
+package org.appstore.view.product;
 
 public class OperationResponse<T> {
 	private String error;

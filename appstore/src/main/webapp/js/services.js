@@ -175,7 +175,7 @@ appStoreServices.factory("ProductService", [
 // AccountService
 appStoreServices.factory("AccountService", [
     "$http",
-    function($resource, $http)
+    function($http)
     {
         function AccountServiceObject()
         {
@@ -186,7 +186,7 @@ appStoreServices.factory("AccountService", [
                 $http({
                     method: "POST",
                     data: { username: username, password: password },
-                    url: "rest/rest/account/login",
+                    url: "rest/account/login",
                     cache: false,
                     responseType: "json"
                 }).
@@ -195,7 +195,6 @@ appStoreServices.factory("AccountService", [
                     if(data.error == null)
                     {
                         var user = new UserModel(
-                            data.response.id,
                             data.response.session_id,
                             data.response.username,
                             data.response.email

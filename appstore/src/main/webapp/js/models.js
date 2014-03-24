@@ -1,8 +1,7 @@
 // user model
-function UserModel(id, session_id, username, email)
+function UserModel(session_id, username, email)
 {
     var self = this;
-    self.id = id;
     self.session_id = session_id;
     self.username = username;
     self.email = email;
