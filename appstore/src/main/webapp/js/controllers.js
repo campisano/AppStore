@@ -59,7 +59,7 @@ appStoreControllers.controller("ProductListController", [
                     SessionService.products = data;
                 },
                 function(data) {
-                    alert("ERROR on ProductListController.getProductList():\n" + data);
+                    alert("ERROR on ProductListController.getProductList():\nresponse: " + data);
                 }
             );
         };
@@ -85,7 +85,7 @@ appStoreControllers.controller("ProductDetailController", [
                     $scope.product = data;
                 },
                 function(data) {
-                    alert("ERROR on ProductDetailController.getProductDetail():\n" + data);
+                    alert("ERROR on ProductDetailController.getProductDetail():\nresponse: " + data);
                 }
             );
         };
@@ -114,7 +114,8 @@ appStoreControllers.controller("AccountController", [
     "$timeout",
     "AccountService",
     "SessionService",
-    function($scope, $routeParams, $location, $timeout, AccountService, SessionService)
+    "CartService",
+    function($scope, $routeParams, $location, $timeout, AccountService, SessionService, CartService)
     {
         $scope.register = function ()
         {
@@ -125,11 +126,20 @@ appStoreControllers.controller("AccountController", [
                 function(data)
                 {
                     SessionService.user = data;
-                    SessionService.cart = new CartModel(); //TODO call load chart
-                    $location.url("/");
+
+                    CartService.getCart(
+                        SessionService.user.session_id,
+                        function(data)
+                        {
+                            SessionService.cart = data;
+                            $location.url("/");
+                        },
+                        function(data) {
+                            alert("ERROR on CartController.getCart():\nresponse: " + data);
+                    });
                 },
                 function(data) {
-                    alert("ERROR on AccountController.register():\n" + data);
+                    alert("ERROR on AccountController.register():\nresponse: " + data);
                 }
             );
         };
@@ -148,7 +158,7 @@ appStoreControllers.controller("AccountController", [
                     $location.url("/");
                 },
                 function(data) {
-                    alert("ERROR on AccountController.edit():\n" + data);
+                    alert("ERROR on AccountController.edit():\nresponse: " + data);
                 }
             );
         };
@@ -161,11 +171,20 @@ appStoreControllers.controller("AccountController", [
                 function(data)
                 {
                     SessionService.user = data;
-                    SessionService.cart = new CartModel(); //TODO call load chart
-                    $location.url("/");
+
+                    CartService.getCart(
+                        SessionService.user.session_id,
+                        function(data)
+                        {
+                            SessionService.cart = data;
+                            $location.url("/");
+                        },
+                        function(data) {
+                            alert("ERROR on CartController.getCart():\nresponse: " + data);
+                    });
                 },
                 function(data) {
-                    alert("ERROR on AccountController.login():\n" + data);
+                    alert("ERROR on AccountController.login():\nresponse: " + data);
                 }
             );
         };
@@ -181,7 +200,7 @@ appStoreControllers.controller("AccountController", [
                     delete SessionService.cart;
                 },
                 function(data) {
-                    alert("ERROR on AccountController.login():\n" + data);
+                    alert("ERROR on AccountController.logout():\nresponse: " + data);
                 }
             );
         };
@@ -192,15 +211,6 @@ appStoreControllers.controller("AccountController", [
             $scope.form = new Object();
             $scope.action = $routeParams.action;
             $scope.EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
-
-            if($routeParams.action == "register" || $routeParams.action == "login" )
-            {
-                $scope.user = new UserModel();
-            }
-            else if ($routeParams.action == "edit" || $routeParams.action == "logout" )
-            {
-                $scope.user = SessionService.user;
-            }
 
             if($routeParams.action == "logout")
             {
@@ -223,18 +233,15 @@ appStoreControllers.controller("CartController", [
         {
             $scope.session = SessionService;
 
-            if (typeof(SessionService.user) !== "undefined")
-            {
-                CartService.getCart(
-                    SessionService.user.session_id,
-                    function(data)
-                    {
-                        SessionService.cart = data;
-                    },
-                    function(data) {
-                        alert("ERROR on CartController.getCart():\n" + data);
-                });
-            }
+            CartService.getCart(
+                SessionService.user.session_id,
+                function(data)
+                {
+                    SessionService.cart = data;
+                },
+                function(data) {
+                    alert("ERROR on CartController.getCart():\nresponse: " + data);
+            });
         };
     }
 ]);

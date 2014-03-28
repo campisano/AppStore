@@ -317,20 +317,24 @@ appStoreServices.factory("CartService", [
                      {
                          var cart = new CartModel();
 
-                         for(var i = 0; i < data.response.products.length; ++i)
+                         if(data.response != null &&
+                            data.response.products != null)
                          {
-                             cart.addProduct(new ProductModel(
-                                 data.response.products[i].id,
-                                 data.response.products[i].name,
-                                 data.response.products[i].price,
-                                 data.response.products[i].version,
-                                 data.response.products[i].size,
-                                 data.response.products[i].system,
-                                 data.response.products[i].type,
-                                 data.response.products[i].category,
-                                 data.response.products[i].age,
-                                 data.response.products[i].description
-                             ));
+	                         for(var i = 0; i < data.response.products.length; ++i)
+	                         {
+	                             cart.addProduct(new ProductModel(
+	                                 data.response.products[i].id,
+	                                 data.response.products[i].name,
+	                                 data.response.products[i].price,
+	                                 data.response.products[i].version,
+	                                 data.response.products[i].size,
+	                                 data.response.products[i].system,
+	                                 data.response.products[i].type,
+	                                 data.response.products[i].category,
+	                                 data.response.products[i].age,
+	                                 data.response.products[i].description
+	                             ));
+	                         }
                          }
 
                          fn_success(cart);

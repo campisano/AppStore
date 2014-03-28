@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.appstore.persistence.DAOException;
 
@@ -39,7 +39,7 @@ public class GenericDAOJPA<T> {
 			String entityName = c.getName().substring(
 					c.getName().lastIndexOf('.') + 1);
 
-			return readList("SELECT e FROM " + entityName + " e");
+			return readList(c, "SELECT e FROM " + entityName + " e");
 		} catch (Exception ex) {
 			throw new DAOException("ERROR GenericDAOJPA.read():\n"
 					+ ex.getMessage(), ex);
@@ -55,10 +55,9 @@ public class GenericDAOJPA<T> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	protected List<T> readList(String queryString,
+	protected List<T> readList(Class<T> c, String queryString,
 			final Object... positionalParams) {
-		Query query = entityManager.createQuery(queryString);
+		TypedQuery<T> query = entityManager.createQuery(queryString, c);
 		int i = 0;
 
 		for (Object p : positionalParams) {
@@ -68,16 +67,34 @@ public class GenericDAOJPA<T> {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	protected T readSingle(String queryString, final Object... positionalParams) {
-		Query query = entityManager.createQuery(queryString);
+	protected T readSingle(Class<T> c, String queryString,
+			final Object... positionalParams) {
+		TypedQuery<T> query = entityManager.createQuery(queryString, c);
 		int i = 0;
 
 		for (Object p : positionalParams) {
 			query.setParameter(++i, p);
 		}
 
-		return (T) query.getSingleResult();
+		return query.getSingleResult();
+	}
+
+	protected T readSingleOrNull(Class<T> c, String queryString,
+			final Object... positionalParams) {
+		TypedQuery<T> query = entityManager.createQuery(queryString, c);
+		query.setMaxResults(1);
+		int i = 0;
+
+		for (Object p : positionalParams) {
+			query.setParameter(++i, p);
+		}
+
+		List<T> list = query.getResultList();
+
+		if (list.isEmpty()) {
+			return null;
+		}
+		return list.get(0);
 	}
 
 	public void update(T entity) throws DAOException {

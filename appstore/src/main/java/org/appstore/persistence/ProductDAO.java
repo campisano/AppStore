@@ -6,13 +6,13 @@ import org.appstore.domain.Product;
 
 public interface ProductDAO {
 
-	public void create(Product entity) throws DAOException;
+	public void create(Product entity);
 
-	public List<Product> read() throws DAOException;
+	public List<Product> read();
 
-	public Product read(String id) throws DAOException;
+	public Product read(String id);
 
-	public void update(Product entity) throws DAOException;
+	public void update(Product entity);
 
-	public void delete(String id) throws DAOException;
+	public void delete(String id);
 }

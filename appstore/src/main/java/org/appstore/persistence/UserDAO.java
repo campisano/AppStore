@@ -6,17 +6,17 @@ import org.appstore.domain.User;
 
 public interface UserDAO {
 
-	public void create(User entity) throws DAOException;
+	public void create(User entity);
 
-	public List<User> read() throws DAOException;
+	public List<User> read();
 
-	public User read(String id) throws DAOException;
+	public User read(String id);
 
-	public User readFromUsername(String username) throws DAOException;
+	public User readFromUsername(String username);
 
-	public User readFromSession(String session) throws DAOException;
+	public User readFromSession(String session);
 
-	public void update(User entity) throws DAOException;
+	public void update(User entity);
 
-	public void delete(String id) throws DAOException;
+	public void delete(String id);
 }

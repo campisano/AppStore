@@ -14,15 +14,15 @@ public class UserDAOJPA extends GenericDAOJPA<User> implements UserDAO {
 		return read(User.class);
 	}
 
-	@Override
 	public User read(String id) {
 		return read(User.class, id);
 	}
 
 	public User readFromUsername(String username) {
 		try {
-			return readSingle("SELECT e FROM User e WHERE e.username = '"
-					+ username + "'");
+			return readSingle(User.class,
+					"SELECT e FROM User e WHERE e.username = '" + username
+							+ "'");
 		} catch (Exception ex) {
 			throw new DAOException("ERROR GenericDAOJPA.read():\n"
 					+ ex.getMessage(), ex);
@@ -31,8 +31,8 @@ public class UserDAOJPA extends GenericDAOJPA<User> implements UserDAO {
 
 	public User readFromSession(String session) {
 		try {
-			return readSingle("SELECT e FROM User e WHERE e.session = '"
-					+ session + "'");
+			return readSingle(User.class,
+					"SELECT e FROM User e WHERE e.session = '" + session + "'");
 		} catch (Exception ex) {
 			throw new DAOException("ERROR GenericDAOJPA.read():\n"
 					+ ex.getMessage(), ex);

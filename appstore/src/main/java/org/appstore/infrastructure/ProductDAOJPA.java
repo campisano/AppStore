@@ -13,7 +13,6 @@ public class ProductDAOJPA extends GenericDAOJPA<Product> implements ProductDAO 
 		return read(Product.class);
 	}
 
-	@Override
 	public Product read(String id) {
 		return read(Product.class, id);
 	}
