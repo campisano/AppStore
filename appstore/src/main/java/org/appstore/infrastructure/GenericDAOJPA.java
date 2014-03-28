@@ -1,7 +1,6 @@
 package org.appstore.infrastructure;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -12,17 +11,12 @@ import org.appstore.persistence.DAOException;
 public class GenericDAOJPA<T> {
 
 	private static EntityManager entityManager;
-	// TODO [CMP] is really necessary?
-	private Logger logger = Logger.getLogger(GenericDAOJPA.class.getName());
 
 	public GenericDAOJPA() {
 		GenericDAOJPA.entityManager = new JPAHelper().getEntityManager();
 	}
 
 	public void create(T entity) throws DAOException {
-		logger.info("GenericDAOJPA CREATING " + entity.getClass().getName()
-				+ "...");
-
 		EntityTransaction tx = null;
 
 		try {
@@ -30,7 +24,6 @@ public class GenericDAOJPA<T> {
 			tx.begin();
 			entityManager.persist(entity);
 			tx.commit();
-			logger.info("GenericDAOJPA CREATE committed.");
 		} catch (Exception ex) {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
@@ -54,9 +47,6 @@ public class GenericDAOJPA<T> {
 	}
 
 	public T read(Class<T> c, Object id) throws DAOException {
-		logger.info("GenericDAOJPA READING " + c.getName() + ".id = "
-				+ id.toString() + "...");
-
 		try {
 			return entityManager.find(c, id);
 		} catch (RuntimeException ex) {
@@ -91,8 +81,6 @@ public class GenericDAOJPA<T> {
 	}
 
 	public void update(T entity) throws DAOException {
-		logger.info("GenericDAOJPA UPDATING " + entity.getClass().getName()
-				+ "...");
 		EntityTransaction tx = null;
 
 		try {
@@ -103,7 +91,6 @@ public class GenericDAOJPA<T> {
 		} catch (Exception ex) {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
-				logger.info("GenericDAOJPA UPDATE committed.");
 			}
 
 			throw new DAOException("ERROR GenericDAOJPA.update():\n"
@@ -112,8 +99,6 @@ public class GenericDAOJPA<T> {
 	}
 
 	public void delete(Class<T> c, Object id) throws DAOException {
-		logger.info("GenericDAOJPA DELETING " + c.getName() + ".id = "
-				+ id.toString() + "...");
 		EntityTransaction tx = null;
 
 		try {
@@ -122,7 +107,6 @@ public class GenericDAOJPA<T> {
 			T entity = entityManager.find(c, id);
 			entityManager.remove(entity);
 			tx.commit();
-			logger.info("GenericDAOJPA DELETE committed.");
 		} catch (Exception ex) {
 			if (tx != null && tx.isActive()) {
 				tx.rollback();

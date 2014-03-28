@@ -25,13 +25,11 @@ appStoreServices.factory("SessionService", [
 
             self.getImagePathFromProduct = function(product)
             {
-                //TODO
-                /*
                 if(! (product instanceof ProductModel))
                 {
                     throw new Error("SessionObject.getImagePathFromProduct() parameter must be a ProductModel");
                 }
-                */
+
                 var image_dir = self.products_image_path;
 
                 if(product.system.substring(0, self.windows_system.length) == self.windows_system)
@@ -52,13 +50,11 @@ appStoreServices.factory("SessionService", [
 
             self.getReferenceURLFromProduct = function(product)
             {
-                //TODO
-                /*
                 if(! (product instanceof ProductModel))
                 {
                     throw new Error("SessionObject.getReferenceURLFromProduct() parameter must be a ProductModel");
                 }
-                */
+
                 var url = "";
 
                 if(product.system.substring(0, self.windows_system.length) == self.windows_system)
@@ -127,7 +123,7 @@ appStoreServices.factory("ProductService", [
                         fn_error(data.error);
                     }
                 }).
-                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
             };
 
             self.getProductDetail = function(product_id, fn_success, fn_error)
@@ -162,7 +158,7 @@ appStoreServices.factory("ProductService", [
                         fn_error(data.error);
                     }
                 }).
-                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
             };
         }
 
@@ -180,6 +176,64 @@ appStoreServices.factory("AccountService", [
         function AccountServiceObject()
         {
             var self = this;
+
+            self.register = function(username, password, email, fn_success, fn_error)
+            {
+                $http({
+                    method: "POST",
+                    data: { username: username, password: password, email: email },
+                    url: "rest/account/register",
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error == null)
+                    {
+                        var user = new UserModel(
+                            data.response.session_id,
+                            data.response.username,
+                            data.response.email
+                        );
+
+                        fn_success(user);
+                    }
+                    else
+                    {
+                        fn_error(data.error);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+            };
+
+            self.edit = function(session_id, username, password, email, fn_success, fn_error)
+            {
+                $http({
+                    method: "POST",
+                    data: { session_id: session_id, username: username, password: password, email: email },
+                    url: "rest/account/edit",
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error == null)
+                    {
+                        var user = new UserModel(
+                            data.response.session_id,
+                            data.response.username,
+                            data.response.email
+                        );
+
+                        fn_success(user);
+                    }
+                    else
+                    {
+                        fn_error(data.error);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+            };
 
             self.login = function(username, password, fn_success, fn_error)
             {
@@ -207,7 +261,30 @@ appStoreServices.factory("AccountService", [
                         fn_error(data.error);
                     }
                 }).
-                error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+            };
+
+            self.logout = function(session_id, fn_success, fn_error)
+            {
+                $http({
+                    method: "POST",
+                    data: { session_id: session_id },
+                    url: "rest/account/logout",
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error == null)
+                    {
+                        fn_success(null);
+                    }
+                    else
+                    {
+                        fn_error(data.error);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
             };
         }
 
@@ -263,7 +340,7 @@ appStoreServices.factory("CartService", [
                          fn_error(data.error);
                      }
                  }).
-                 error(function(data, status, headers, config) { fn_error("AJAX ERROR " + status + "\n" + data + "\n" + headers + "\n" + config); });
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
              };
          }
 

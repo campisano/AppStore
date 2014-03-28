@@ -59,7 +59,7 @@ appStoreControllers.controller("ProductListController", [
                     SessionService.products = data;
                 },
                 function(data) {
-                    alert("ERROR on ProductDetailController.getProductList():\n" + data);
+                    alert("ERROR on ProductListController.getProductList():\n" + data);
                 }
             );
         };
@@ -118,29 +118,39 @@ appStoreControllers.controller("AccountController", [
     {
         $scope.register = function ()
         {
-            //if(AccountService.register($scope.user)) // TODO enable
-            {
-                SessionService.user = $scope.user;
-                SessionService.cart = new CartModel();
-                $location.url("/");
-            }/*
-            else
-            {
-                // TODO
-            }*/
+            AccountService.register(
+                $scope.form.username,
+                $scope.form.password,
+                $scope.form.email,
+                function(data)
+                {
+                    SessionService.user = data;
+                    SessionService.cart = new CartModel(); //TODO call load chart
+                    $location.url("/");
+                },
+                function(data) {
+                    alert("ERROR on AccountController.register():\n" + data);
+                }
+            );
         };
 
         $scope.edit = function ()
         {
-            //if(AccountService.edit($scope.user)) // TODO enable
-            {
-                SessionService.user = $scope.user;
-                $location.url("/");
-            }/*
-            else
-            {
-                // TODO
-            }*/
+            AccountService.edit(
+                SessionService.user.session_id,
+                $scope.form.username,
+                $scope.form.password,
+                $scope.form.email,
+                function(data)
+                {
+                    SessionService.user.username = data.username;
+                    SessionService.user.email = data.email;
+                    $location.url("/");
+                },
+                function(data) {
+                    alert("ERROR on AccountController.edit():\n" + data);
+                }
+            );
         };
 
         $scope.login = function ()
@@ -151,8 +161,24 @@ appStoreControllers.controller("AccountController", [
                 function(data)
                 {
                     SessionService.user = data;
-                    SessionService.cart = new CartModel();
+                    SessionService.cart = new CartModel(); //TODO call load chart
                     $location.url("/");
+                },
+                function(data) {
+                    alert("ERROR on AccountController.login():\n" + data);
+                }
+            );
+        };
+
+        $scope.logout = function ()
+        {
+            AccountService.logout(
+                SessionService.user.session_id,
+                function()
+                {
+                    $scope.form.username = SessionService.user.username;
+                    delete SessionService.user;
+                    delete SessionService.cart;
                 },
                 function(data) {
                     alert("ERROR on AccountController.login():\n" + data);
@@ -178,10 +204,7 @@ appStoreControllers.controller("AccountController", [
 
             if($routeParams.action == "logout")
             {
-                $scope.form.username = SessionService.user.username;
-                delete SessionService.user;
-                delete SessionService.cart;
-                $timeout(function() { $location.url("/"); }, 3000);
+                $scope.logout();
             }
         };
     }

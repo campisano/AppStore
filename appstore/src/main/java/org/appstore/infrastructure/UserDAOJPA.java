@@ -31,8 +31,8 @@ public class UserDAOJPA extends GenericDAOJPA<User> implements UserDAO {
 
 	public User readFromSession(String session) {
 		try {
-			return readSingle("SELECT e FROM User e WHERE e.session = "
-					+ session);
+			return readSingle("SELECT e FROM User e WHERE e.session = '"
+					+ session + "'");
 		} catch (Exception ex) {
 			throw new DAOException("ERROR GenericDAOJPA.read():\n"
 					+ ex.getMessage(), ex);

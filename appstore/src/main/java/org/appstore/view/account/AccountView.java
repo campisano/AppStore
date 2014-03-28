@@ -1,5 +1,6 @@
 package org.appstore.view.account;
 
+import org.appstore.common.OperationResult;
 import org.appstore.common.OperationResultObject;
 import org.appstore.controller.AccountController;
 import org.appstore.domain.User;
@@ -17,26 +18,101 @@ public class AccountView {
 	@Autowired
 	AccountController accountController;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody
-	OperationResponse<LoginResponse> login(@RequestBody LoginRequest request) {
+	OperationResponse<AccountResponse> register(
+			@RequestBody RegisterRequest request) {
 
-		OperationResponse<LoginResponse> response = new OperationResponse<LoginResponse>();
-
-		response.setResponse(new LoginResponse());
+		OperationResponse<AccountResponse> response = new OperationResponse<AccountResponse>();
 
 		try {
-			OperationResultObject<User> result = accountController.login(
-					request.getUsername(), request.getPassword());
+			OperationResultObject<User> result = accountController.register(
+					request.getUsername(), request.getPassword(),
+					request.getEmail());
 
 			if (result.isSuccess()) {
-				response.setResponse(new LoginResponse());
+				response.setResponse(new AccountResponse());
 				response.getResponse().setSession_id(
 						result.getObject().getSession());
 				response.getResponse().setUsername(
 						result.getObject().getUsername());
 				response.getResponse().setEmail(result.getObject().getEmail());
 			} else {
+				response.setError(result.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setError(ex.getMessage());
+		}
+
+		return response;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public @ResponseBody
+	OperationResponse<AccountResponse> edit(@RequestBody EditRequest request) {
+
+		OperationResponse<AccountResponse> response = new OperationResponse<AccountResponse>();
+
+		try {
+			OperationResultObject<User> result = accountController.edit(
+					request.getSession_id(), request.getUsername(),
+					request.getPassword(), request.getEmail());
+
+			if (result.isSuccess()) {
+				response.setResponse(new AccountResponse());
+				response.getResponse().setSession_id(
+						result.getObject().getSession());
+				response.getResponse().setUsername(
+						result.getObject().getUsername());
+				response.getResponse().setEmail(result.getObject().getEmail());
+			} else {
+				response.setError(result.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setError(ex.getMessage());
+		}
+
+		return response;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public @ResponseBody
+	OperationResponse<AccountResponse> login(@RequestBody LoginRequest request) {
+
+		OperationResponse<AccountResponse> response = new OperationResponse<AccountResponse>();
+
+		try {
+			OperationResultObject<User> result = accountController.login(
+					request.getUsername(), request.getPassword());
+
+			if (result.isSuccess()) {
+				response.setResponse(new AccountResponse());
+				response.getResponse().setSession_id(
+						result.getObject().getSession());
+				response.getResponse().setUsername(
+						result.getObject().getUsername());
+				response.getResponse().setEmail(result.getObject().getEmail());
+			} else {
+				response.setError(result.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setError(ex.getMessage());
+		}
+
+		return response;
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public @ResponseBody
+	OperationResponse<AccountResponse> logout(@RequestBody LogoutRequest request) {
+
+		OperationResponse<AccountResponse> response = new OperationResponse<AccountResponse>();
+
+		try {
+			OperationResult result = accountController.logout(request
+					.getSession_id());
+
+			if (!result.isSuccess()) {
 				response.setError(result.getMessage());
 			}
 		} catch (Exception ex) {
