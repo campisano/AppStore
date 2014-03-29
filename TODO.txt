@@ -4,7 +4,6 @@
 * lista aplicativos
   (tofix: top banner não visualizado em xs mode)
 * visualizar detalhes
-  (tirar GPS e Infrared, colocar detalhes)
 * login usuário
 * logout
 * gestão ao carrinho

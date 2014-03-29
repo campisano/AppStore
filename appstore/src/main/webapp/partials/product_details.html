@@ -1,51 +1,40 @@
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="pull-left">
-            <h3>Detalhes do aplicativo:</h3>
-            <h3><a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row-fluid">
+                    <div class="pull-left">
+                        <a href="{{ product | ReferenceURLFilter }}">
+                            <img height="125px" data-ng-src="{{ product | ImagePathFilter }}"/>
+                        </a>
+                    </div>
+                    <div class="pull-left col-sm-offset-1">
+                        <h3><a href="{{ product | ReferenceURLFilter }}">{{ product.name }}</a></h3>
+                        <span>Versão: {{ product.version }}</span><br/>
+                        <span>Tipo: {{ product.type }}</span><br/>
+                        <span>Sistema: {{ product.system }}</span><br/>
+                        <span>Tamanho: {{ product.size }}</span><br/>
+                        <span>Categoria: {{ product.category }}</span><br/>
+                        <span>Idade: {{ product.age }}</span><br/>
+                        <span>Preço: {{ product.price }}</span><br/>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="{{ product | ReferenceURLFilter }}">
-            <img height="125px" data-ng-src="{{ product | ImagePathFilter }}" />
-        </a>
+    </div>
+    <div class="row-fluid">
         <div class="row-fluid" data-ng-controller="CartController" >
+            <button class="btn btn-primary" onclick="window.location.href='#/'">
+                <div class="glyphicon glyphicon-chevron-left"></div> Volta para a lista
+            </button>
             <button class="btn btn-success" data-ng-click="addProduct(product.id)" data-ng-disabled="! session.cart || session.cart.contains(product.id)">
                 <div class="glyphicon glyphicon-ok"></div> Adiciona ao carrinho
             </button>
         </div>
-        <div class="row-fluid">
-            <button class="btn btn-primary" onclick="window.location.href='#/'">
-                <div class="glyphicon glyphicon-chevron-left"></div> Volta para a lista
-            </button>
-        </div>
     </div>
-    <hr/>
-    <div>
-        <img data-ng-src="{{ img }}" data-ng-repeat="img in product.images" data-ng-class="{ active: main_image_url == img }" />
+    <div class="row-fluid">
+        <hr/>
+        <h1 data-ng-bind-html="product.name"></h1>
+        <div data-ng-bind-html="product.description | JsonNewlineToNewLineFilter | NewLineToHTMLbrFilter"></div>
     </div>
-    <h1 data-ng-bind-html="product.name | NewlineToBrFilter"></h1>
-    <p data-ng-bind-html="product.description | NewlineToBrFilter"></p>
-    <ul>
-        <li data-ng-repeat="img in product.images"><img data-ng-src="{{ img }}" data-ng-mouseenter="setImage(img)"/></li>
-    </ul>
-    <ul>
-        <li>
-            <div>Availability and Networks</div>
-            <dl>
-                <dt>Availability</dt>
-                <dd data-ng-repeat="availability in product.availability">{{ availability }}</dd>
-            </dl>
-        </li>
-        <li>
-            <div>Additional Features</div>
-            <dl>
-                <dd>{{ product.additionalFeatures }}</dd>
-            </dl>
-            <dl>
-                <dt>Infrared</dt>
-                <dd>{{ product.connectivity.infrared | CheckmarkFilter }}</dd>
-                <dt>GPS</dt>
-                <dd>{{ product.connectivity.gps | CheckmarkFilter }}</dd>
-            </dl>
-        </li>
-    </ul>
 </div>

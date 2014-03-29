@@ -24,3 +24,24 @@ Util.getCookie = function(cname)
 
     return "";
 };
+
+
+
+Util.newLineToHTMLbr = function(text)
+{
+    return text.replace(/\n/g, "<br/>");
+};
+
+
+
+Util.HTMLbrToNewLine = function(text)
+{
+    return text.replace(/<br\s*[\/]?>/gi, "\n");
+};
+
+
+
+Util.jsonNewlineToNewLine = function(text)
+{
+    return text.replace(/\\n/g, "\n");
+};

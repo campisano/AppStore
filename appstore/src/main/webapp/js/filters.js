@@ -16,7 +16,7 @@ appStoreFilters.filter("CheckmarkFilter",
 
 
 
-appStoreFilters.filter("NewlineToBrFilter",
+appStoreFilters.filter("NewLineToHTMLbrFilter",
     function()
     {
         return function(text)
@@ -26,7 +26,41 @@ appStoreFilters.filter("NewlineToBrFilter",
                 return "";
             }
 
-            return text.replace(/\n/g, "<br/>");
+            return Util.newLineToHTMLbr(text);
+        };
+    }
+);
+
+
+
+appStoreFilters.filter("HTMLbrToNewLineFilter",
+    function()
+    {
+        return function(text)
+        {
+            if(typeof(text) === "undefined")
+            {
+                return "";
+            }
+
+            return Util.HTMLbrToNewLine(text);
+        };
+    }
+);
+
+
+
+appStoreFilters.filter("JsonNewlineToNewLineFilter",
+    function()
+    {
+        return function(text)
+        {
+            if(typeof(text) === "undefined")
+            {
+                return "";
+            }
+
+            return Util.jsonNewlineToNewLine(text);
         };
     }
 );
