@@ -1,0 +1,17 @@
+== Funcionando ==
+
+* sessão geral
+* lista aplicativos
+  (tofix: top banner não visualizado em xs mode)
+* visualizar detalhes
+  (tirar GPS e Infrared, colocar detalhes)
+* login usuário
+* logout
+* gestão ao carrinho
+
+
+
+== Não funcionando ==
+
+* compra aplicativos e email
+  OBS não enviar email, mostrar mensagem os detalhes e o link, deverá baixar um arquivo testo qualquer!
