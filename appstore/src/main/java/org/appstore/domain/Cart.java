@@ -1,12 +1,13 @@
 package org.appstore.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -16,9 +17,9 @@ public class Cart {
 	private Long id;
 	@OneToOne(optional = false)
 	private User user;
-	@OneToMany
-	@JoinColumn(name = "product_id", referencedColumnName = "id")
-	private List<Product> products;
+	@ManyToMany
+	@JoinTable(name = "Cart_Product", joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id", unique = true)})
+	private Set<Product> products;
 
 	public Long getId() {
 		return id;
@@ -36,11 +37,11 @@ public class Cart {
 		this.user = user;
 	}
 
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 }

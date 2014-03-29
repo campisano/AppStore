@@ -243,5 +243,51 @@ appStoreControllers.controller("CartController", [
                     alert("ERROR on CartController.getCart():\nresponse: " + data);
             });
         };
+
+        $scope.addProduct = function(product_id)
+        {
+            CartService.addProduct(
+                SessionService.user.session_id,
+                product_id,
+                function(data)
+                {
+                    SessionService.cart = data;
+                },
+                function(data) {
+                    alert("ERROR on CartController.addProduct():\nresponse: " + data);
+            });
+        };
+
+        $scope.removeProduct = function(product_id)
+        {
+            CartService.removeProduct(
+                SessionService.user.session_id,
+                product_id,
+                function(data)
+                {
+                    SessionService.cart = data;
+                },
+                function(data) {
+                    alert("ERROR on CartController.removeProduct():\nresponse: " + data);
+            });
+        };
+
+        $scope.removeAllProducts = function()
+        {
+            CartService.removeAllProducts(
+                SessionService.user.session_id,
+                function(data)
+                {
+                    SessionService.cart = data;
+                },
+                function(data) {
+                    alert("ERROR on CartController.removeAllProducts():\nresponse: " + data);
+            });
+        };
+
+        $scope.checkout = function(payment_id)
+        {
+            
+        };
     }
 ]);

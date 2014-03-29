@@ -315,28 +315,7 @@ appStoreServices.factory("CartService", [
                  {
                      if(data.error == null)
                      {
-                         var cart = new CartModel();
-
-                         if(data.response != null &&
-                            data.response.products != null)
-                         {
-	                         for(var i = 0; i < data.response.products.length; ++i)
-	                         {
-	                             cart.addProduct(new ProductModel(
-	                                 data.response.products[i].id,
-	                                 data.response.products[i].name,
-	                                 data.response.products[i].price,
-	                                 data.response.products[i].version,
-	                                 data.response.products[i].size,
-	                                 data.response.products[i].system,
-	                                 data.response.products[i].type,
-	                                 data.response.products[i].category,
-	                                 data.response.products[i].age,
-	                                 data.response.products[i].description
-	                             ));
-	                         }
-                         }
-
+                         var cart = getCartFromDataResponse(data);
                          fn_success(cart);
                      }
                      else
@@ -345,6 +324,106 @@ appStoreServices.factory("CartService", [
                      }
                  }).
                  error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+             };
+
+             self.addProduct = function(session_id, product_id, fn_success, fn_error)
+             {
+                 $http({
+                     method: "POST",
+                     data: { session_id: session_id, product_id: product_id },
+                     url: "rest/cart/addproduct",
+                     cache: false,
+                     responseType: "json"
+                 }).
+                 success(function(data, status, headers, config)
+                 {
+                     if(data.error == null)
+                     {
+                         var cart = getCartFromDataResponse(data);
+                         fn_success(cart);
+                     }
+                     else
+                     {
+                         fn_error(data.error);
+                     }
+                 }).
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+             };
+
+             self.removeProduct = function(session_id, product_id, fn_success, fn_error)
+             {
+                 $http({
+                     method: "POST",
+                     data: { session_id: session_id, product_id: product_id },
+                     url: "rest/cart/removeproduct",
+                     cache: false,
+                     responseType: "json"
+                 }).
+                 success(function(data, status, headers, config)
+                 {
+                     if(data.error == null)
+                     {
+                         var cart = getCartFromDataResponse(data);
+                         fn_success(cart);
+                     }
+                     else
+                     {
+                         fn_error(data.error);
+                     }
+                 }).
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+             };
+
+             self.removeAllProducts = function(session_id, fn_success, fn_error)
+             {
+                 $http({
+                     method: "POST",
+                     data: { session_id: session_id },
+                     url: "rest/cart/removeallproducts",
+                     cache: false,
+                     responseType: "json"
+                 }).
+                 success(function(data, status, headers, config)
+                 {
+                     if(data.error == null)
+                     {
+                         var cart = getCartFromDataResponse(data);
+                         fn_success(cart);
+                     }
+                     else
+                     {
+                         fn_error(data.error);
+                     }
+                 }).
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+             };
+
+             // private
+             var getCartFromDataResponse = function(data)
+             {
+                 var cart = new CartModel();
+
+                 if(data.response != null &&
+                    data.response.products != null)
+                 {
+                     for(var i = 0; i < data.response.products.length; ++i)
+                     {
+                         cart.addProduct(new ProductModel(
+                             data.response.products[i].id,
+                             data.response.products[i].name,
+                             data.response.products[i].price,
+                             data.response.products[i].version,
+                             data.response.products[i].size,
+                             data.response.products[i].system,
+                             data.response.products[i].type,
+                             data.response.products[i].category,
+                             data.response.products[i].age,
+                             data.response.products[i].description
+                         ));
+                     }
+                 }
+
+                 return cart;
              };
          }
 

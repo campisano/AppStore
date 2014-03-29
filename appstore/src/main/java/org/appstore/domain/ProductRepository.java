@@ -34,9 +34,10 @@ public class ProductRepository {
 		}
 	}
 
-	public OperationResultObject<Product> read(String id) {
+	public OperationResultObject<Product> read(String product_id) {
 		try {
-			return new OperationResultObject<Product>(true, productDAO.read(id));
+			return new OperationResultObject<Product>(true,
+					productDAO.read(product_id));
 		} catch (DAOException ex) {
 			return new OperationResultObject<Product>(false, ex.getMessage());
 		}
@@ -52,9 +53,9 @@ public class ProductRepository {
 		}
 	}
 
-	public OperationResult delete(String id) {
+	public OperationResult delete(String product_id) {
 		try {
-			productDAO.delete(id);
+			productDAO.delete(product_id);
 
 			return new OperationResult(true);
 		} catch (DAOException ex) {

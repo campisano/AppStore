@@ -25,7 +25,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.system }}</td>
                     <td>{{ product.price | currency }}</td>
-                    <td><a href="" data-ng-click="session.cart.removeProduct(product.id)" class="glyphicon glyphicon-remove"></a></td>
+                    <td><a href="" data-ng-click="removeProduct(product.id)" class="glyphicon glyphicon-remove"></a></td>
                 </tr>
 
                 <!-- footer -->
@@ -44,15 +44,15 @@
                 <button class="btn btn-block btn-primary" onclick="window.location.href='#/'">
                     <div class="glyphicon glyphicon-chevron-left"></div> Adiciona mais
                 </button>
-                <button class="btn btn-block btn-danger" data-ng-click="session.cart.removeAllProducts()" data-ng-disabled="! session.cart.getNumOfProducts() > 0">
+                <button class="btn btn-block btn-danger" data-ng-click="removeAllProducts()" data-ng-disabled="! session.cart.getNumOfProducts() > 0">
                     <div class="glyphicon glyphicon-trash"></div> Limpa o carrinho
                 </button>
             </div>
             <div class="col-xs-6 push-right">
-                <button class="btn btn-block btn-success" data-ng-click="session.cart.checkout('PayPal')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" data-ng-click="checkout('PayPal')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com PayPal
                 </button>
-                <button class="btn btn-block btn-success" data-ng-click="session.cart.checkout('Google')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" data-ng-click="checkout('Google')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com Google
                 </button>
             </div>

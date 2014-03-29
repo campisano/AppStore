@@ -1,5 +1,6 @@
 package org.appstore.view.cart;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.appstore.domain.Cart;
@@ -16,6 +17,7 @@ public class GetCartResponse {
 
 	public GetCartResponse(Cart cart) {
 		this.id = String.valueOf(cart.getId());
+		this.products = new HashSet<GetProductResponse>();
 
 		for (Product product : cart.getProducts()) {
 			this.products.add(new GetProductResponse(product));

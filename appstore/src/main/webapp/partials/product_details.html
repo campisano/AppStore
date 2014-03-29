@@ -7,8 +7,8 @@
         <a href="{{ product | ReferenceURLFilter }}">
             <img height="125px" data-ng-src="{{ product | ImagePathFilter }}" />
         </a>
-        <div class="row-fluid">
-            <button class="btn btn-success" data-ng-click="session.cart.addProduct(product)" data-ng-disabled="!session.cart">
+        <div class="row-fluid" data-ng-controller="CartController" >
+            <button class="btn btn-success" data-ng-click="addProduct(product.id)" data-ng-disabled="! session.cart || session.cart.contains(product.id)">
                 <div class="glyphicon glyphicon-ok"></div> Adiciona ao carrinho
             </button>
         </div>
