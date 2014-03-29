@@ -121,4 +121,32 @@ public class AccountView {
 
 		return response;
 	}
+
+	@RequestMapping(value = "/session", method = RequestMethod.POST)
+	public @ResponseBody
+	OperationResponse<AccountResponse> getSession(
+			@RequestBody SessionRequest request) {
+
+		OperationResponse<AccountResponse> response = new OperationResponse<AccountResponse>();
+
+		try {
+			OperationResultObject<User> result = accountController
+					.getSession(request.getSession_id());
+
+			if (result.isSuccess()) {
+				response.setResponse(new AccountResponse());
+				response.getResponse().setSession_id(
+						result.getObject().getSession());
+				response.getResponse().setUsername(
+						result.getObject().getUsername());
+				response.getResponse().setEmail(result.getObject().getEmail());
+			} else {
+				response.setError(result.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setError(ex.getMessage());
+		}
+
+		return response;
+	}
 }

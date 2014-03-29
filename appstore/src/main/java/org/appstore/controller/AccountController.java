@@ -128,4 +128,11 @@ public class AccountController {
 
 		return session;
 	}
+
+	public OperationResultObject<User> getSession(String session_id) {
+		OperationResultObject<User> resultRead = accountRepository
+				.readFromSession(session_id);
+
+		return resultRead;
+	}
 }

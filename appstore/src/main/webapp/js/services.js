@@ -286,6 +286,35 @@ appStoreServices.factory("AccountService", [
                 }).
                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
             };
+
+            self.getSession = function(cookie_session, fn_success, fn_error)
+            {
+                $http({
+                    method: "POST",
+                    data: { session_id: cookie_session },
+                    url: "rest/account/session",
+                    cache: false,
+                    responseType: "json"
+                }).
+                success(function(data, status, headers, config)
+                {
+                    if(data.error == null)
+                    {
+                        var user = new UserModel(
+                            data.response.session_id,
+                            data.response.username,
+                            data.response.email
+                        );
+
+                        fn_success(user);
+                    }
+                    else
+                    {
+                        fn_error(data.error);
+                    }
+                }).
+                error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+            };
         }
 
         return new AccountServiceObject();
