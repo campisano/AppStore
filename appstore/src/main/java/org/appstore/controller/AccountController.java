@@ -49,12 +49,21 @@ public class AccountController {
 				return new OperationResultObject<User>(false,
 						"Username already exist.");
 			}
-			
+
 			resultReadSess.getObject().setUsername(username);
 			resultReadSess.getObject().setPassword(password);
 			resultReadSess.getObject().setEmail(email);
 
-			return new OperationResultObject<User>(true, resultReadSess.getObject());
+			OperationResult resultSave = accountRepository
+					.update(resultReadSess.getObject());
+
+			if (!resultSave.isSuccess()) {
+				return new OperationResultObject<User>(false,
+						"Updating user failed.");
+			} else {
+				return new OperationResultObject<User>(true,
+						resultReadSess.getObject());
+			}
 		} else {
 			return new OperationResultObject<User>(false,
 					"User session invalid.");
