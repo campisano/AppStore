@@ -27,55 +27,6 @@ function ProductModel(id, name, price, version, size, system, type, category, ag
 
 
 
-// store model
-function StoreModel()
-{
-    var self = this;
-    self.products = new Array();
-
-    self.addProduct = function(product)
-    {
-        if( product === null)
-        {
-            throw new Error("StoreModel.addProduct() parameter must be a ProductModel, it's null");
-        }
-        
-        if(! (product instanceof ProductModel))
-        {
-            throw new Error("StoreModel.addProduct() parameter must be a ProductModel, it's a " + typeof(product));
-        }
-
-        if(self.contains(product.id))
-        {
-            throw new Error("StoreModel.addProduct() alredy exist a product with same id: " + product.id);
-        }
-
-        self.products.push(product);
-    };
-
-    // TODO duplicated with CartModel
-    self.contains = function(product_id)
-    {
-        for(var i = 0; i < self.products.length; ++i)
-        {
-            if (self.products[i].id === product_id)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    };
-
-    // TODO duplicated with CartModel
-    self.getNumOfProducts = function()
-    {
-        return self.products.length;
-    };
-}
-
-
-
 // shopping cart model
 function CartModel()
 {
@@ -125,20 +76,13 @@ function CartModel()
         }
     };
 
-    // TODO util funtion
-    // from http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844#1830844
-    self.isNumber = function(n)
-    {
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    };
-
     self.getTotalPrice = function()
     {
         var total = 0.0;
 
         for (var i=0; i < self.products.length; ++i)
         {
-            if(self.isNumber(self.products[i].price))
+            if(Util.isNumber(self.products[i].price))
             {
                 total += parseFloat(self.products[i].price);
             }
@@ -147,13 +91,11 @@ function CartModel()
         return total;
     };
 
-    // TODO duplicated with StoreModel
     self.getNumOfProducts = function()
     {
         return self.products.length;
     };
 
-    // TODO duplicated with StoreModel
     self.contains = function(product_id)
     {
         for(var i = 0; i < self.products.length; ++i)

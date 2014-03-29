@@ -74,31 +74,31 @@ describe("javascript behaviors", function()
 
 describe("AppStoreApplication models", function()
 {
-    describe("StoreModel", function()
+    describe("CartModel", function()
     {
         it("addProduct(null) throw an Error exception", function()
         {
-            expect(function(){ new StoreModel().addProduct(null); }).toThrowError(Error);
+            expect(function(){ new CartModel().addProduct(null); }).toThrowError(Error);
         });
 
         it("addProduct(\"\") throw an Error exception", function()
         {
-            expect(function(){ new StoreModel().addProduct(""); }).toThrowError(Error);
+            expect(function(){ new CartModel().addProduct(""); }).toThrowError(Error);
         });
 
         it("addProduct(new Object()) throw an Error exception", function()
         {
-            expect(function(){ new StoreModel().addProduct(new Object()); }).toThrowError(Error);
+            expect(function(){ new CartModel().addProduct(new Object()); }).toThrowError(Error);
         });
 
         it("addProduct(new ProductModel(1)) not throw exception", function()
         {
-            expect(function(){ new StoreModel().addProduct(new ProductModel(1)); }).not.toThrow();
+            expect(function(){ new CartModel().addProduct(new ProductModel(1)); }).not.toThrow();
         });
 
         it("addProduct(...) increment getNumOfProducts()", function()
         {
-            var store_model = new StoreModel();
+            var store_model = new CartModel();
             expect(store_model.getNumOfProducts() === 0).toBe(true);
             store_model.addProduct(new ProductModel(1));
             expect(store_model.getNumOfProducts() === 1).toBe(true);
@@ -106,7 +106,7 @@ describe("AppStoreApplication models", function()
 
         it("duplicated id addProduct(new ProductModel(1)) throw an Error exception", function()
         {
-            var store_model = new StoreModel();
+            var store_model = new CartModel();
             store_model.addProduct(new ProductModel(1));
             expect(function(){ store_model.addProduct(new ProductModel(1)); }).toThrowError(Error);
         });
