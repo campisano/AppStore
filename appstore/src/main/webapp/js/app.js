@@ -3,8 +3,9 @@ var appStoreApplication = angular.module("AppStoreApplication", [
     "ngRoute",
     "ngSanitize",
     "AppStoreControllers",
-    "AppStoreFilters",
     "AppStoreServices",
+    "AppStoreFilters",
+    "AppStoreDirectives",
     "AppStoreAnimations"
 ]);
 
