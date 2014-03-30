@@ -244,11 +244,6 @@ appStoreControllers.controller("AccountController", [
             $scope.form = new Object();
             $scope.action = $routeParams.action;
             $scope.EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i;
-
-            if($routeParams.action == "logout")
-            {
-                $scope.logout();
-            }
         };
     }
 ]);
@@ -260,7 +255,8 @@ appStoreControllers.controller("CartController", [
     "$scope",
     "CartService",
     "SessionService",
-    function($scope, CartService, SessionService)
+    "ModalService",
+    function($scope, CartService, SessionService, ModalService)
     {
         // constructor
         {
@@ -320,7 +316,25 @@ appStoreControllers.controller("CartController", [
 
         $scope.checkout = function(payment_id)
         {
+            var modalDefaults =
+            {
+                backdrop: true,
+                keyboard: true,
+                modalFade: true,
+                templateUrl: "partials/modal.html"
+            };
             
+            var modalOptions =
+            {
+                closeButtonText: "Fechar",
+                actionButtonText: "Confirmar",
+                headerText: "Confirma?",
+                bodyText: "Confirma o pagamento?"
+            };
+            
+            ModalService.showModal(modalDefaults, modalOptions).then(function (result) {
+                ModalService.alert("Email enviado com sucesso!");
+            });
         };
     }
 ]);

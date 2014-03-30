@@ -32,9 +32,9 @@
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     <div class="glyphicon glyphicon-user"></div> {{ session.user.username }} <div class="caret"></div>
                                 </div>
-                                <ul class="dropdown-menu">
+                                <ul data-ng-controller="AccountController" class="dropdown-menu">
                                     <li><a href="#account/edit">Alterar conta</a></li>
-                                    <li><a href="#account/logout">Sair</a></li>
+                                    <li><a href="#" data-confirm-directive="Quer realmente sair?" data-confirmed-onclick="logout()">Sair</a></li>
                                 </ul>
                             </div>
                             <a href="#cart" class="glyphicon glyphicon-shopping-cart">

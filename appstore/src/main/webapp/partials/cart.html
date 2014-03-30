@@ -48,10 +48,10 @@
                 </button>
             </div>
             <div class="col-xs-6 push-right">
-                <button class="btn btn-block btn-success" data-confirm-click-directive="Quer pagar com PayPal?" data-confirmed-click="checkout('PayPal')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" data-ng-click="checkout('PayPal')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com PayPal
                 </button>
-                <button class="btn btn-block btn-success" data-confirm-click-directive="Quer pagar com Google?" data-confirmed-click="checkout('Google')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
+                <button class="btn btn-block btn-success" data-ng-click="checkout('Google')" data-ng-disabled="! session.cart.getTotalPrice() > 0">
                     <div class="glyphicon glyphicon-ok"></div> Paga com Google
                 </button>
             </div>

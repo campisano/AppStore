@@ -2,8 +2,9 @@
 var appStoreApplication = angular.module("AppStoreApplication", [
     "ngRoute",
     "ngSanitize",
-    "AppStoreControllers",
+    "ui.bootstrap",
     "AppStoreServices",
+    "AppStoreControllers",
     "AppStoreFilters",
     "AppStoreDirectives",
     "AppStoreAnimations"
