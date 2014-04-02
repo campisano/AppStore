@@ -324,23 +324,31 @@ appStoreControllers.controller("CartController", [
                 actionButtonText: "Confirmar",
             };
 
-            var modalDefaults =
+            var modalConfirm =
             {
                 backdrop: true,
                 keyboard: true,
                 modalFade: true,
-                templateUrl: "partials/checkout.html",
+                templateUrl: "partials/checkout_confirm.html",
                 controller: ModalService.getDefaultController(modalOptions, SessionService)
             };
 
-            ModalService.showModal(modalDefaults, modalOptions).then(function (result)
+            ModalService.showModal(modalConfirm, modalOptions).then(function (result)
             {
                 CartService.checkout(
                     SessionService.user.session_id,
                     payment_id,
                     function(data)
                     {
-                        ModalService.alert("Email enviado com sucesso!");
+                    	var modalEnd =
+                        {
+                                backdrop: true,
+                                keyboard: true,
+                                modalFade: true,
+                                templateUrl: "partials/checkout_end.html",
+                                controller: ModalService.getDefaultController(modalOptions, SessionService)
+                            };
+                    	ModalService.showModal(modalEnd, modalOptions);
                         SessionService.cart = data;
                     },
                     function(data)
