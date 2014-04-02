@@ -118,4 +118,26 @@ public class CartController {
 
 		return new OperationResult(true);
 	}
+
+	public OperationResult checkout(String session_id, String payment_id) {
+		OperationResultObject<Cart> resultGetCart = cartRepository
+				.getCartFromUserSession(session_id);
+
+		if (!resultGetCart.isSuccess()) {
+			return new OperationResult(false,
+					"Unable to retrieve Cart from session_id");
+		}
+
+		// TODO [CMP] payment to implement, email to sent.
+
+		Cart cart = resultGetCart.getObject();
+		cart.getProducts().clear();
+		OperationResult resultAdd = cartRepository.save(cart);
+
+		if (!resultAdd.isSuccess()) {
+			return new OperationResult(false, "Unable to update Cart");
+		}
+
+		return new OperationResult(true);
+	}
 }

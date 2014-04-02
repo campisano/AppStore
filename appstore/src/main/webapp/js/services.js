@@ -427,6 +427,30 @@ appStoreServices.factory("CartService", [
                  error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
              };
 
+             self.checkout = function(session_id, payment_id, fn_success, fn_error)
+             {
+                 $http({
+                     method: "POST",
+                     data: { session_id: session_id, payment_id: payment_id },
+                     url: "rest/cart/checkout",
+                     cache: false,
+                     responseType: "json"
+                 }).
+                 success(function(data, status, headers, config)
+                 {
+                     if(data.error == null)
+                     {
+                         var cart = getCartFromDataResponse(data);
+                         fn_success(cart);
+                     }
+                     else
+                     {
+                         fn_error(data.error);
+                     }
+                 }).
+                 error(function(data, status, headers, config) { fn_error("AJAX ERROR:\n" + config.method + ": " + config.url + "\nstatus: " + status + "\nresponse: " + angular.toJson(data, true)); });
+             };
+
              // private
              var getCartFromDataResponse = function(data)
              {
@@ -470,6 +494,8 @@ appStoreServices.factory("ModalService", [
     {
         function ModalServiceObject()
         {
+            var self = this;
+            
             var modalDefaults =
             {
                 backdrop: true,
@@ -486,15 +512,15 @@ appStoreServices.factory("ModalService", [
                 bodyText: "Perform this action?"
             };
 
-            this.showModal = function (customModalDefaults, customModalOptions)
+            self.showModal = function(customModalDefaults, customModalOptions)
             {
                 if (!customModalDefaults) customModalDefaults = {};
                 customModalDefaults.backdrop = "static";
 
-                return this.show(customModalDefaults, customModalOptions);
+                return self.show(customModalDefaults, customModalOptions);
             };
 
-            this.show = function (customModalDefaults, customModalOptions)
+            self.show = function(customModalDefaults, customModalOptions)
             {
                 //Create temp objects to work with since we're in a singleton service
                 var tempModalDefaults = {};
@@ -508,30 +534,36 @@ appStoreServices.factory("ModalService", [
 
                 if (!tempModalDefaults.controller)
                 {
-                    tempModalDefaults.controller = function ($scope, $modalInstance)
-                    {
-                        $scope.modalOptions = tempModalOptions;
-                        $scope.modalOptions.ok = function (result)
-                        {
-                            $modalInstance.close(result);
-                        };
-
-                        $scope.modalOptions.close = function (result)
-                        {
-                            $modalInstance.dismiss("cancel");
-                        };
-                    };
+                    tempModalDefaults.controller = self.getDefaultController(tempModalOptions, SessionService);
                 }
 
                 return $modal.open(tempModalDefaults).result;
             };
+            
+            self.getDefaultController = function(tempModalOptions, session)
+            {
+            	return function ($scope, $modalInstance)
+                {
+                    $scope.session = session;
+                    $scope.modalOptions = tempModalOptions;
+                    $scope.modalOptions.ok = function(result)
+                    {
+                        $modalInstance.close(result);
+                    };
 
-            this.alert = function (message)
+                    $scope.modalOptions.close = function(result)
+                    {
+                        $modalInstance.dismiss("cancel");
+                    };
+                };
+            };
+
+            self.alert = function(message)
             {
                 $modal.open(
                 {
                     templateUrl: "partials/alert.html",
-                    controller : function ($scope, $modalInstance)
+                    controller : function($scope, $modalInstance)
                     {
                         $scope.modalOptions = 
                         {
@@ -539,7 +571,7 @@ appStoreServices.factory("ModalService", [
                             headerText: "Proceed?",
                             bodyText: message
                         };
-                        $scope.modalOptions.close = function (result)
+                        $scope.modalOptions.close = function(result)
                         {
                             $modalInstance.close(result);
                         };

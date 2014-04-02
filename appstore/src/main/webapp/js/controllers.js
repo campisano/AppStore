@@ -316,24 +316,38 @@ appStoreControllers.controller("CartController", [
 
         $scope.checkout = function(payment_id)
         {
+        	SessionService.payment_id = payment_id;
+
+            var modalOptions =
+            {
+                closeButtonText: "Fechar",
+                actionButtonText: "Confirmar",
+            };
+
             var modalDefaults =
             {
                 backdrop: true,
                 keyboard: true,
                 modalFade: true,
-                templateUrl: "partials/modal.html"
+                templateUrl: "partials/checkout.html",
+                controller: ModalService.getDefaultController(modalOptions, SessionService)
             };
-            
-            var modalOptions =
+
+            ModalService.showModal(modalDefaults, modalOptions).then(function (result)
             {
-                closeButtonText: "Fechar",
-                actionButtonText: "Confirmar",
-                headerText: "Confirma?",
-                bodyText: "Confirma o pagamento?"
-            };
-            
-            ModalService.showModal(modalDefaults, modalOptions).then(function (result) {
-                ModalService.alert("Email enviado com sucesso!");
+                CartService.checkout(
+                    SessionService.user.session_id,
+                    payment_id,
+                    function(data)
+                    {
+                        ModalService.alert("Email enviado com sucesso!");
+                        SessionService.cart = data;
+                    },
+                    function(data)
+                    {
+                        alert("ERROR on CartController.checkout():\nresponse: " + data);
+                    }
+                );
             });
         };
     }

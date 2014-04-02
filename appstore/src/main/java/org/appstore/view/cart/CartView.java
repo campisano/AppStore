@@ -143,4 +143,35 @@ public class CartView {
 
 		return response;
 	}
+
+	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
+	public @ResponseBody
+	OperationResponse<GetCartResponse> checkout(
+			@RequestBody CheckoutRequest request) {
+
+		OperationResponse<GetCartResponse> response = new OperationResponse<GetCartResponse>();
+
+		try {
+			OperationResult resultCheck = cartController.checkout(
+					request.getSession_id(), request.getPayment_id());
+
+			if (resultCheck.isSuccess()) {
+				OperationResultObject<Cart> resultGet = cartController
+						.getCartFromUserSession(request.getSession_id());
+
+				if (resultGet.isSuccess()) {
+					response.setResponse(new GetCartResponse(resultGet
+							.getObject()));
+				} else {
+					response.setError(resultGet.getMessage());
+				}
+			} else {
+				response.setError(resultCheck.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setError(ex.getMessage());
+		}
+
+		return response;
+	}
 }
