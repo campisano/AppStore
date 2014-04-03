@@ -18,7 +18,7 @@ public class Cart {
 	@OneToOne(optional = false)
 	private User user;
 	@ManyToMany
-	@JoinTable(name = "Cart_Product", joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id", unique = true)})
+	@JoinTable(name = "Cart_Product", joinColumns = { @JoinColumn(name = "cart_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
 	private Set<Product> products;
 
 	public Long getId() {
