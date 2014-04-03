@@ -12,7 +12,7 @@ public class CartDAOJPA extends GenericDAOJPA<Cart> implements CartDAO {
 		try {
 			return readSingleOrNull(
 					Cart.class,
-					"SELECT c FROM Cart as c INNER JOIN c.user as u WHERE u.session = ?",
+					"SELECT c FROM Cart as c INNER JOIN c.user as u WHERE u.session = ?1",
 					session_id);
 		} catch (Exception ex) {
 			throw new DAOException("ERROR GenericDAOJPA.read():\n"
